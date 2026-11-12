@@ -1,0 +1,2277 @@
+---
+title: "ESTIMACIÓN DE PARÁMETROS POBLACIONALES"
+subtitle: "Estimación para una y dos poblaciones"
+author: 
+  - name: Paula Andrea Arevalo Pacheco<br>Brayan Daniel Quiñones Bohorquez
+    affiliation: "Universidad del Tolima"
+    affiliation-url: "https://www.ut.edu.co/"
+date: today
+lang: es
+title-block-banner: "#00CED1"
+
+format:
+  html:
+    page-layout: full
+    fontsize: 12pt
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    number-sections: true
+    code-fold: true
+    code-summary: "Ver código"
+    theme: dark
+    highlight-style: monokai
+    html-math-method: katex
+    smooth-scroll: true
+    link-external-newwindow: true
+    code-overflow: scroll
+    favicon: favicon.ico
+    css: estilos.css
+    
+editor: visual
+
+knitr:
+  opts_chunk:
+    message: false
+    warning: false
+    fig.align: center
+    fig.width: 6
+    fig.height: 6
+    out.width: "70%"
+---
+
+```{=html}
+<div style="position:absolute; top:10px; right:10px;">
+<img src="LOGO/Logo_UT.png" width="150">
+</div>
+```
+
+```{=html}
+<style>
+body{
+  background-color:#f7f6ed;
+  font-size:130%;
+  text-align:justify;
+}
+</style>
+```
+
+# . ESTIMACIÓN DE PARÁMETROS
+
+## . ESTIMACIÓN PUNTUAL
+
+En todo este tema vamos a suponer que estamos estudiando una población cuya distribución es conocida excepto en un parámetro $(\mu, \sigma^2, \lambda, \dots)$ al que llamaremos $\theta$. A la distribución de la población la denotaremos por $f(x)$.
+
+Diremos que nos encontramos ante un *problema de estimación* cuando, dada una población con una distribución $f(x)$ donde $\theta$ es un parámetro desconocido, aventuremos o infiramos en base a los datos muestrales $X_1, X_2, \dots, X_n$ el valor de $\theta$. Si al inferir el parámetro damos un único valor estaremos ante un *problema de estimación puntual*.
+
+-   **Estimador puntual** $\hat{\theta}(X_1, X_2, \dots, X_n)$: será una función de la muestra aleatoria (un estadístico) que utilizaremos para estimar el valor del parámetro $\theta$.
+-   **Estimación**: valor obtenido del estimador al sustituir por los valores de una muestra completa.
+
+Cuando no haya lugar para la confusión designaremos al estimador simplemente por $\hat{\theta}$.
+
+Un estimador es, por tanto, un estadístico y, por ello, es una v.a. con una determinada distribución de probabilidad llamada *distribución muestral*.
+
+Dado un parámetro, podríamos utilizar distintos estimadores puntuales para estimarlo. Por ejemplo, para estimar la varianza de la población podemos utilizar la varianza muestral o la cuasi-varianza muestral. ¿Cuál es mejor? Veamos a continuación cómo comprobar si un estadístico es un buen estimador de un parámetro. Para ello le exigiremos una serie de propiedades. Como el estadístico es una variable aleatoria, las propiedades se las tenemos que exigir a su distribución de probabilidad.
+
+**PROPIEDADES DE LOS ESTIMADORES**
+
+Un estadístico se considera un buen estimador de un parámetro si cumple: ser **insesgado**, ser **consistente** y ser **eficiente**.
+
+*INSESGADEZ*
+
+Un estimador $\hat{\theta}$ es insesgado si $E[\hat{\theta}] = \theta$. Es decir, su distribución está centrada en el parámetro a estimar.
+
+**Ejemplos:** Sea una m.a.s. $X_1, X_2, \dots, X_n$ tal que $E[X_i] = \mu$ y $Var[X_i] = \sigma^2$.
+
+a)  Consideremos como estimador de la media poblacional a la media muestral. Es decir $\hat{\mu} = \overline{X}_n$. Por el tema anterior, sabemos que $E[\overline{X}_n] = \mu$. Por tanto, la media muestral es estimador insesgado de la media poblacional.
+
+b)  Supongamos como estimador de la varianza poblacional a la varianza muestral, $\hat{\sigma}^2 = s_n^2$. Del tema anterior, sabemos que $E[s_n^2] = \frac{n-1}{n}\sigma^2$. Por tanto, la varianza muestral no es un estimador insesgado de la varianza poblacional.
+
+c)  Consideremos ahora como estimador de la varianza poblacional a la cuasi-varianza muestral, $\hat{\sigma}^2 = s_n^{*2}$. Del tema anterior sabemos que $E[s_n^{*2}] = \sigma^2$. Por tanto, la cuasi-varianza muestral es un estimador insesgado de la varianza poblacional.
+
+*CONSISTENCIA*
+
+Diremos que $\hat{\theta}$ es un estimador consistente de $\theta$ si cumple:
+
+$$\lim_{n \to \infty} E[\hat{\theta}] = \theta \quad \text{y} \quad \lim_{n \to \infty} Var[\hat{\theta}] = 0 \iff \lim_{n \to \infty} P[\hat{\theta} = \theta] = 1$$
+
+Esto significa que si tomáramos la mayor muestra posible, el estimador coincidiría con el valor del parámetro.
+
+**Ejemplo:** Veamos que los estimadores de los cuales hemos hablado en el apartado anterior son consistentes.
+
+a)  Si consideramos $\hat{\mu} = \overline{X}_n$. Se cumple que $E[\overline{X}_n] = \mu$ y $Var[\overline{X}_n] = \frac{\sigma^2}{n}$. Tomando límites, $\lim_{n \to \infty} \frac{\sigma^2}{n} = 0$. Por tanto, $\overline{X}_n$ es estimador consistente.
+
+b)  Si consideramos $\hat{\sigma}^2 = s_n^2$. Se cumple que:
+
+$$E[s_n^2] = \frac{n-1}{n}\sigma^2 \quad \text{y} \quad Var[s_n^2] = \frac{2(n-1)}{n^2}\sigma^4$$
+
+Tomando límites,
+
+$$\lim_{n \to \infty} \frac{n-1}{n}\sigma^2 = \sigma^2 \quad \text{y} \quad \lim_{n \to \infty} \frac{2(n-1)}{n^2}\sigma^4 = 0$$
+
+Por tanto, $s_n^2$ es un estimador consistente de $\sigma^2$.
+
+c)  Si consideramos $\hat{\sigma}^2 = s_n^{*2}$. Se cumple que:
+
+$$E[s_n^{*2}] = \sigma^2 \quad \text{y} \quad Var[s_n^{*2}] = \frac{2}{n-1}\sigma^4$$
+
+Tomando límites,
+
+$$\lim_{n \to \infty} \sigma^2 = \sigma^2 \quad \text{y} \quad \lim_{n \to \infty} \frac{2}{n-1}\sigma^4 = 0$$
+
+Por tanto, $s_n^{*2}$ es un estimador consistente de la varianza poblacional.
+
+*EFICIENCIA*
+
+Dados dos estimadores de $\theta$, $\hat{\theta}_1$ y $\hat{\theta}_2$, decimos que $\hat{\theta}_1$ es más eficiente que $\hat{\theta}_2$, si $Var[\hat{\theta}_1] < Var[\hat{\theta}_2]$. Nos interesa el que tenga menos dispersión. Para comparar la eficiencia se construye el cociente $\frac{Var[\hat{\theta}_1]}{Var[\hat{\theta}_2]}$.
+
+Si es mayor que 1, entonces $\hat{\theta}_2$ es más eficiente; si es igual a 1, entonces ambos estimadores son igual de eficientes; si es menor que 1, entonces $\hat{\theta}_1$ es más eficiente.
+
+**Ejemplo:** Consideremos como estimadores de $\sigma^2$ a $s_n^2$ y $s_n^{*2}$. Calculamos el cociente de las varianzas:
+
+$$\frac{Var[s_n^2]}{Var[s_n^{*2}]} = \frac{\frac{2(n-1)}{n^2}\sigma^4}{\frac{2}{n-1}\sigma^4} = \frac{(n-1)^2}{n^2} < 1$$
+
+Por tanto, $s_n^2$ es más eficiente.
+
+**MÉTODOS DE CÁLCULO DE LOS ESTIMADORES**
+
+De los diferentes métodos de cálculo de los estimadores, nosotros veremos:
+
+a)  Estimación por el método de los momentos.
+b)  Estimación máximo-verosímil.
+
+*ESTIMACIÓN POR EL MÉTODO DE LOS MOMENTOS*
+
+Consiste en tomar como estimadores de los momentos poblacionales a los momentos muestrales. Se obtiene una ecuación de donde podemos despejar el parámetro a estimar.
+
+*ESTIMACIÓN MÁXIMO-VEROSÍMIL*
+
+Sea $X$ una variable aleatoria con distribución $f(x; \theta)$ donde $\theta$ es el parámetro desconocido. Sean $X_1, X_2, \dots, X_n$ $n$ variables aleatorias independientes con la misma distribución que $X$; es decir, sea $(X_1, X_2, \dots, X_n)$ una m.a.s. Bajo estas condiciones la distribución conjunta de las variables aleatorias $X_1, X_2, \dots, X_n$ será igual al producto de las marginales.
+
+$$f(x_1, x_2, \dots, x_n; \theta) = f(x_1; \theta) \cdot f(x_2; \theta) \dots f(x_n; \theta)$$
+
+Si consideramos $x_1, x_2, \dots, x_n$ fijos y estudiamos esta función como función de $\theta$ recibe el nombre de *función de verosimilitud* y se denota por $V(\theta)$.
+
+Sean $\hat{\theta}_1 = u_1(X_1, X_2, \dots, X_n)$, $\hat{\theta}_2 = u_2(X_1, X_2, \dots, X_n)$, etc. diversos estimadores de $\theta$. De todos ellos pretendemos elegir el que haga máxima la función de verosimilitud. Es decir, un estimador $\hat{\theta}$ será *estimador máximo-verosímil (EMV)* de $\theta$ si maximiza $V(\theta)$.
+
+Debido a que la función de verosimilitud es no negativa, continua y creciente, alcanzará su máximo en los mismos puntos que su logaritmo y por ello, y por razones de cálculo se suele maximizar $\ln V(\theta)$ cuando esta depende de exponenciales. Así pues, deberemos resolver la siguiente ecuación:
+
+$$\frac{d(\ln V(\theta))}{d\theta} = 0$$
+
+En el caso de dos o más parámetros desconocidos, el procedimiento es el mismo. Por ejemplo, si tuviéramos $V(\theta_1, \theta_2, \theta_3)$ los tres estimadores máximo verosímiles serán los que maximizan la función $V(\theta_1, \theta_2, \theta_3)$ o su logaritmo. Se obtendrían al resolver las ecuaciones siguientes:
+
+$$\begin{aligned}
+\frac{d(\ln V(\theta_1, \theta_2, \theta_3))}{d\theta_1} &= 0 \quad \wedge \\
+\frac{d(\ln V(\theta_1, \theta_2, \theta_3))}{d\theta_2} &= 0 \quad \wedge \\
+\frac{d(\ln V(\theta_1, \theta_2, \theta_3))}{d\theta_3} &= 0
+\end{aligned}$$
+
+**Propiedades de los EMV:**
+
+a)  Son consistentes.
+b)  Son asintóticamente eficientes. Es decir, tienen la varianza mínima cuando el tamaño muestral tiende a infinito.
+c)  Si $\hat{\theta}$ es estimador suficiente de $\theta$, el EMV de $\theta$ es función de $\hat{\theta}$.
+d)  Son asintóticamente normales. Es decir, su distribución tiende a la distribución normal cuando tiende a infinito el tamaño de la muestra.
+e)  Si $\hat{\theta}$ es EMV de $\theta$, entonces $g(\hat{\theta})$ es EMV de $g(\theta)$, siendo $g$ una aplicación biyectiva.
+
+**Ejemplo:** Obtener el EMV del parámetro de una v.a. $X$ que sigue una distribución de Bernouilli, $X \to Be(p)$.
+
+Su función de cuantía es $f(x; p) = p^x(1-p)^{1-x}$. Si elegimos una muestra de tamaño $n$, la función de verosimilitud correspondiente será:
+
+$$\begin{aligned}
+V(p) &= f(x_1; p) \cdot f(x_2; p) \dots f(x_n; p) \\
+&= p^{x_1}(1-p)^{1-x_1} p^{x_2}(1-p)^{1-x_2} \dots p^{x_n}(1-p)^{1-x_n} \\
+&= p^{\sum x_i}(1-p)^{n-\sum x_i}
+\end{aligned}$$
+
+Tomando logaritmos tenemos:
+
+$$\ln V(p) = \sum x_i \ln p + (n - \sum x_i)\ln(1-p)$$
+
+Para obtener el EMV de $p$ debemos resolver la ecuación $\frac{d(\ln V(p))}{dp} = 0$.
+
+En este caso:
+
+$$\frac{d(\ln V(p))}{dp} = \sum x_i \frac{1}{p} + (n - \sum x_i)\frac{(-1)}{(1-p)} = 0$$
+
+Haciendo operaciones e igualando denominadores obtenemos:
+
+$$\begin{aligned}
+(1-p)\sum x_i - p(n - \sum x_i) &= \sum x_i - p\sum x_i - np + p\sum x_i \\
+&= \sum x_i - np = 0
+\end{aligned}$$
+
+Despejando el valor de $p$ obtenemos el estimador:
+
+$$EMV(p) = \frac{\sum x_i}{n} \quad \implies \quad \hat{p} = \frac{\sum x_i}{n}$$
+
+Es decir, la proporción de éxitos de la muestra.
+
+## . ESTIMACIÓN POR INTERVALOS DE CONFIANZA
+
+En la estimación puntual atribuimos al parámetro el valor correspondiente del estimador obtenido en la muestra aleatoria de tamaño $n$. Es claro, que dicho valor difícilmente coincidirá con el verdadero valor del parámetro aunque el tamaño de la muestra sea muy grande.
+
+La estimación por intervalos consiste en atribuir al parámetro desconocido un rango de posibles valores (en base a los datos muestrales) que tengan una alta probabilidad de incluir entre ellos al valor del parámetro desconocido. Para ello será imprescindible conocer la distribución muestral del estadístico utilizado.
+
+El intervalo estimado que debe contener al parámetro se llama *intervalo confidencial o de confianza*. Denominamos *límites confidenciales* a los extremos de dicho intervalo. Llamaremos *nivel de confianza* a la probabilidad de que un intervalo contenga al parámetro desconocido y se suele denotar por $1-\alpha$. Se llama *nivel de riesgo o de significación* al valor de $\alpha$.
+
+Es decir, $P(\theta \in [a,b]) = 1-\alpha$. Esto indica que el $(1-\alpha)\%$ de intervalos construidos contendrán al parámetro desconocido.
+
+Denominaremos *error muestral máximo* a la diferencia entre el valor de la estimación muestral y el valor del parámetro; es decir, $E = |\hat{\theta} - \theta| = \frac{b-a}{2}$.
+
+**Ejemplo:** Sea $\theta$ el parámetro desconocido y $\hat{\theta}$ el estimador que consideramos el cual sigue una distribución $N(\theta, \sigma^2)$. Supongamos un error muestral máximo $E = |\hat{\theta} - \theta| = 2\sigma$.
+
+Si calculamos la probabilidad de tener ese error o uno menor, obtendremos:
+
+$$\begin{aligned}
+P[|\hat{\theta} - \theta| \le 2\sigma] &= P(-2\sigma \le \hat{\theta} - \theta \le 2\sigma) \\
+&= P\left(-2 \le \frac{\hat{\theta} - \theta}{\sigma} \le 2\right) \\
+&= \Phi(2) - \Phi(-2) = 2\Phi(2) - 1 = 0{,}9544
+\end{aligned}$$
+
+ya que el estimador seguía una distribución normal.
+
+Esta probabilidad podemos escribirla también de la siguiente forma:
+
+$$\begin{aligned}
+P(-2\sigma \le \hat{\theta} - \theta \le 2\sigma) &= P(2\sigma \ge \hat{\theta} - \theta \ge -2\sigma) \\
+&= P(-2\sigma + \hat{\theta} \le \theta \le 2\sigma + \hat{\theta}) \\
+&= P(\theta \in [\hat{\theta} - 2\sigma, \hat{\theta} + 2\sigma])
+\end{aligned}$$
+
+Por tanto, el intervalo de confianza $[\hat{\theta} - 2\sigma, \hat{\theta} + 2\sigma]$ tiene un nivel de confianza $1-\alpha = 0{,}9544$ o un nivel de significación de $\alpha = 0{,}0456$. Esto equivale a decir que tenemos la confianza $0{,}9544$ de que, extraída una muestra y calculado el valor de $\hat{\theta}$, éste no se aleja del parámetro más de dos desviaciones típicas o un riesgo de $0{,}0456$ de que se aleja más de esa cantidad.
+
+Dicho de otro modo, si sale una muestra en que $\hat{\theta}$ está en la zona rayada el intervalo no contendrá a $\theta$.
+
+Normalmente lo que se hace es fijar de antemano el nivel de confianza y se busca el intervalo correspondiente a ese nivel de confianza utilizando la distribución muestral del estadístico.
+
+**CASOS PARTICULARES**
+
+**INTERVALO DE CONFIANZA PARA LA MEDIA**
+
+Si desconocemos la distribución de la población, podemos hallar un intervalo de confianza para la media, basándonos en un resultado que conocemos como *Desigualdad de TChebychev*.
+
+Sea $X$ una v.a. cualquiera con media $\mu$ y varianza $\sigma^2$. Se cumple que:
+
+$$P\left(\mu - \frac{k}{\sigma} \le X \le \mu + \frac{k}{\sigma}\right) \ge 1 - \frac{1}{k^2}$$
+
+Usando el anterior resultado, aplicándolo a la variable aleatoria $\overline{X}_n$ y tomando $\alpha = \frac{1}{k^2}$ obtendríamos que el intervalo para un nivel $1-\alpha$ sería:
+
+$$\left[\overline{X}_n - \frac{\sigma}{\sqrt{n\alpha}}, \quad \overline{X}_n + \frac{\sigma}{\sqrt{n\alpha}}\right]$$
+
+Para analizar los resultados que presentamos a continuación, supongamos una población que se distribuye normal de media $\mu$ y varianza poblacional $\sigma^2$. También servirán cuando la población no es normal pero el tamaño muestral es grande.
+
+**a) Si** $\sigma^2$ es conocida.
+
+Ya sabemos que $\frac{\overline{X}_n - \mu}{\sigma/\sqrt{n}} \to N(0,1)$. Sea $z_{1-\frac{\alpha}{2}}$ el percentil de la distribución normal; es decir, $\Phi(z) = 1 - \frac{\alpha}{2}$.
+
+Haciendo operaciones:
+
+$$P\left[-z_{1-\frac{\alpha}{2}} \le \frac{\overline{X}_n - \mu}{\sigma/\sqrt{n}} \le z_{1-\frac{\alpha}{2}}\right] = 1 - \alpha$$
+
+$$P\left(\overline{X}_n - z_{1-\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}} \le \mu \le \overline{X}_n + z_{1-\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\right) = 1 - \alpha$$
+
+Por tanto, el intervalo de confianza para $\mu$ será:
+
+$$\left[\overline{X}_n - z_{1-\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}, \quad \overline{X}_n + z_{1-\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}\right]$$
+
+**b) Si** $\sigma^2$ es desconocida.
+
+En este caso tenemos que $\frac{\overline{X}_n - \mu}{s_n}\sqrt{n} \to t_{n-1}$.
+
+Por el mismo razonamiento anterior, si llamamos $t_{n-1, 1-\frac{\alpha}{2}}$ al percentil de la distribución $t$ de Student tal que $P(t_{n-1} \le x) = 1 - \frac{\alpha}{2}$, el intervalo de confianza al nivel de significación $\alpha$ (o equivalentemente, al nivel de confianza $1-\alpha$) será:
+
+$$\left[\overline{X}_n - t_{n-1, 1-\frac{\alpha}{2}}\frac{s_n}{\sqrt{n}}, \quad \overline{X}_n + t_{n-1, 1-\frac{\alpha}{2}}\frac{s_n}{\sqrt{n}}\right]$$
+
+**Ejemplo:** Extraemos una m.a.s. de 60 estudiantes universitarios. Responden a una prueba de inteligencia espacial, en la que alcanzan una media de 80 y una varianza de 100. ¿Entre qué límites se hallará la verdadera inteligencia espacial media de los estudiantes, a un nivel de confianza del 99%?
+
+$$1-\alpha = 0{,}99 \implies \alpha = 0{,}01 \implies 1 - \frac{\alpha}{2} = 0{,}995$$
+
+La varianza poblacional es desconocida y la población no es normal, pero el tamaño muestral es mayor que 30, por tanto, el intervalo correspondiente será:
+
+$$\left[\overline{X}_n - t_{n-1, 1-\frac{\alpha}{2}}\frac{s_n}{\sqrt{n}}, \quad \overline{X}_n + t_{n-1, 1-\frac{\alpha}{2}}\frac{s_n}{\sqrt{n}}\right]$$
+
+Buscamos en las tablas la distribución $t$ de Student $t_{60, 0{,}005} = 2{,}66$.
+
+Sabemos que $\overline{X}_n = 80$ y $s_n = 10$. Sustituyendo en el intervalo de confianza tenemos:
+
+$$\left[80 - 2{,}66\frac{10}{\sqrt{60}}, \quad 80 + 2{,}66\frac{10}{\sqrt{60}}\right]$$
+
+por tanto, $\mu \in [76{,}57, 83{,}43]$ con un nivel de confianza del 99%.
+
+**INTERVALO DE CONFIANZA PARA LA PROPORCIÓN**
+
+Si en una población Bernouilli de parámetro $p$ definimos la v.a. $X = \text{nº éxitos en la muestra}$, $X$ sigue una distribución binomial de parámetros $(n,p)$. Si la muestra es grande, tenemos que la proporción muestral $P = X/n$ se distribuye aproximadamente como una normal $N\left(p, \frac{pq}{n}\right)$ y podremos usar el teorema central del límite.
+
+En una población Bernoulli, $\mu = p$, $\sigma^2 = p(1-p)$ y si denotamos por $P$ a la proporción en la muestra $\overline{X}_n = P$. Así pues podemos aplicar el intervalo de confianza para la media con varianza conocida visto anteriormente, sustituyendo lo anterior y aproximando $p(1-p)$ por $P(1-P)$. Un intervalo de confianza aproximado para $p$ a nivel $1-\alpha$ sería:
+
+$$
+\begin{aligned}
+P_1 - P_2 \in \left[ P_1 - P_2 - z_{1-\frac{\alpha}{2}}\sqrt{\frac{P_1 Q_1}{n_1} + \frac{P_2 Q_2}{n_2}}, \right. \\
+\left. P_1 - P_2 + z_{1-\frac{\alpha}{2}}\sqrt{\frac{P_1 Q_1}{n_1} + \frac{P_2 Q_2}{n_2}} \right]
+\end{aligned}
+$$
+
+**Ejemplo:** Uno de los líderes de un colectivo laboral desea plantear una cuestión a todos los miembros del grupo. Si más de la mitad respondieran NO entonces preferiría no plantearla para no minar su prestigio. Para salir de dudas, elige aleatoriamente a 100 trabajadores a los que hace la pregunta y sólo 30 responden NO. ¿Entre qué límites se hallará la verdadera proporción al nivel del 95%?
+
+Como el tamaño muestral es grande, podemos aplicar el teorema central del límite. Tenemos:
+
+$$1-\alpha = 0{,}95 \implies 1-\frac{\alpha}{2} = 0{,}975 \implies z_{1-\frac{\alpha}{2}} = 1{,}96$$
+
+Sustituyendo los valores en el intervalo correspondiente:
+
+$$\begin{aligned}
+&\left[0{,}3 - 1{,}96\sqrt{\frac{0{,}3 \cdot 0{,}7}{100}}, \quad 0{,}3 + 1{,}96\sqrt{\frac{0{,}3 \cdot 0{,}7}{100}}\right] \\
+&= [0{,}2102, 0{,}3898]
+\end{aligned}$$
+
+Por tanto, la verdadera proporción está en el intervalo $[0{,}2102, 0{,}3898]$ con un nivel de confianza del 95%.
+
+**INTERVALO DE CONFIANZA PARA LA DIFERENCIA DE MEDIAS**
+
+Suponemos dos poblaciones independientes: $X \to N(\mu_1, \sigma_1^2)$ e $Y \to N(\mu_2, \sigma_2^2)$. Tomamos muestras de tamaño $n_1$ y $n_2$, respectivamente.
+
+**a) Si** $\sigma_1^2$ y $\sigma_2^2$ son conocidas:
+
+Como $\overline{X}_{n_1} - \overline{Y}_{n_2} \to N\left(\mu_1 - \mu_2, \frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}\right)$, el intervalo de confianza será:
+
+$$\mu_1 - \mu_2 \in \left[\overline{X}_{n_1} - \overline{Y}_{n_2} - z_{1-\frac{\alpha}{2}}\sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}, \quad \overline{X}_{n_1} - \overline{Y}_{n_2} + z_{1-\frac{\alpha}{2}}\sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}\right]$$
+
+**b) Si** $\sigma_1^2$ y $\sigma_2^2$ son desconocidas pero iguales:
+
+Como:
+
+$$\frac{(\overline{X}_{n_1} - \overline{Y}_{n_2}) - (\mu_1 - \mu_2)}{\sqrt{\frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2-2}\left(\frac{1}{n_1} + \frac{1}{n_2}\right)}} \to t_{n_1+n_2-2}$$
+
+el intervalo de confianza será:
+
+$$\begin{aligned}
+&\left[\overline{X}_{n_1} - \overline{Y}_{n_2} - t_{n_1+n_2-2, 1-\frac{\alpha}{2}}\sqrt{\frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2-2}\left(\frac{1}{n_1} + \frac{1}{n_2}\right)}, \right. \\
+&\quad \left. \overline{X}_{n_1} - \overline{Y}_{n_2} + t_{n_1+n_2-2, 1-\frac{\alpha}{2}}\sqrt{\frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2-2}\left(\frac{1}{n_1} + \frac{1}{n_2}\right)}\right]
+\end{aligned}$$
+
+**c) Si** $\sigma_1^2$ y $\sigma_2^2$ son desconocidas pero diferentes:
+
+El intervalo de confianza será:
+
+$$\left[\overline{X}_{n_1} - \overline{Y}_{n_2} - t_{k, 1-\frac{\alpha}{2}}\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}, \quad \overline{X}_{n_1} - \overline{Y}_{n_2} + t_{k, 1-\frac{\alpha}{2}}\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}\right]$$
+
+Donde los grados de libertad $k$ para determinar el valor de cuantil $t$, está dado por:
+
+$$k = \frac{\left(\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}\right)^2}{\frac{\left(\frac{s_1^2}{n_1}\right)^2}{n_1-1} + \frac{\left(\frac{s_2^2}{n_2}\right)^2}{n_2-1}}$$
+
+**d) Muestras Pareadas:**
+
+$$\left[\overline{d} - t_{n-1, 1-\frac{\alpha}{2}}\frac{s_d}{\sqrt{n}}, \quad \overline{d} + t_{n-1, 1-\frac{\alpha}{2}}\frac{s_d}{\sqrt{n}}\right]$$
+
+Donde:
+
+$$\overline{d} = \frac{\sum d_i}{n} \quad \text{y} \quad s_d = \sqrt{\frac{\sum d_i^2 - \frac{(\sum d_i)^2}{n}}{n-1}}$$
+
+**Ejemplo:** Dos universidades públicas tienen dos métodos distintos para inscribir a sus alumnos. Los dos desean comprobar el tiempo promedio que toma la inscripción de los alumnos. En cada universidad se tomaron los tiempos de inscripción de 31 alumnos tomados al azar. Las medias y desviaciones típicas muestrales fueron: $\overline{x} = 20{,}3$, $s_x = 2{,}5$, $\overline{y} = 23$, $s_y = 3$. Si se supone que el muestreo se llevó a cabo en dos poblaciones normales e independientes, obtener los intervalos de confianza al nivel de riesgo 0,05 para la diferencia entre las medias del tiempo de inscripción para las dos universidades,
+
+a)  suponiendo que las varianzas poblacionales son $\sigma_x^2 = 9$, $\sigma_y^2 = 10$.
+b)  suponiendo que las varianzas poblacionales son desconocidas pero iguales.
+
+Para el apartado a:
+
+$$\alpha = 0{,}05 \implies 1-\alpha = 0{,}95 \implies 1-\frac{\alpha}{2} = 0{,}975 \implies z_{1-\frac{\alpha}{2}} = 1{,}96$$
+
+Sustituyendo los valores en el intervalo obtenemos:
+
+$$\begin{aligned}
+\mu_1 - \mu_2 &\in \left[20{,}3 - 23 - 1{,}96\sqrt{\frac{9}{31} + \frac{10}{31}}, \quad 20{,}3 - 23 + 1{,}96\sqrt{\frac{9}{31} + \frac{10}{31}}\right] \\
+&= [-2{,}7 - 1{,}53, \quad -2{,}7 + 1{,}53] = [-4{,}23, -1{,}17]
+\end{aligned}$$
+
+Para el apartado b, buscamos en la tabla de la $t$ de Student $t_{31+31-2, 0{,}975} = 2$.
+
+Sustituyendo los valores en el intervalo obtenemos:
+
+$$\begin{aligned}
+&\left[20{,}3 - 23 - 2\sqrt{\frac{31 \cdot 2{,}5^2 + 31 \cdot 3^2}{31+31-2}\left(\frac{1}{31} + \frac{1}{31}\right)}, \right. \\
+&\quad \left. 20{,}3 - 23 + 2\sqrt{\frac{31 \cdot 2{,}5^2 + 31 \cdot 3^2}{31+31-2}\left(\frac{1}{31} + \frac{1}{31}\right)}\right] \\
+&= [-2{,}7 - 1{,}4, \quad -2{,}7 + 1{,}4] = [-4{,}1, -1{,}3]
+\end{aligned}$$
+
+**INTERVALO DE CONFIANZA PARA LA DIFERENCIA DE PROPORCIONES**
+
+Sean $X \to Be(p_1)$ e $Y \to Be(p_2)$ dos poblaciones independientes con $p_1$ y $p_2$ desconocidos. Extraemos muestras de tamaño $n_1$ y $n_2$, respectivamente. Como $P_1 - P_2 \to N\left(p_1 - p_2, \frac{p_1 q_1}{n_1} + \frac{p_2 q_2}{n_2}\right)$ y desconocemos los valores de $p_1$ y $p_2$, aproximaremos las proporciones poblacionales por las proporciones muestrales correspondientes. Por tanto, el intervalo de confianza será:
+
+$$P_1 - P_2 \in \left[P_1 - P_2 - z_{1-\frac{\alpha}{2}}\sqrt{\frac{P_1 Q_1}{n_1} + \frac{P_2 Q_2}{n_2}}, \quad P_1 - P_2 + z_{1-\frac{\alpha}{2}}\sqrt{\frac{P_1 Q_1}{n_1} + \frac{P_2 Q_2}{n_2}}\right]$$
+
+**Caso particular:** Si tenemos $p_1 = p_2 = p$, entonces $E[P_1 - P_2] = 0$ y $Var[P_1 - P_2] = pq\left(\frac{1}{n_1} + \frac{1}{n_2}\right)$. Lo que haremos es sustituir $p$ por $\frac{n_1 P_1 + n_2 P_2}{n_1 + n_2}$.
+
+**Ejemplo:** En dos grandes empresas se lleva a cabo un estudio sobre la proporción de mujeres entre sus empleados diplomados y licenciados. De cada empresa se toma una m.a.s. de 40 empleados entre los diplomados y licenciados, obteniéndose que en la empresa A había 16 mujeres y en la empresa B, 22 mujeres. Obtener el intervalo de confianza para la diferencia de proporciones poblacionales al nivel de confianza 0,96. ¿Podemos pensar que la proporción es la misma?
+
+$$1-\alpha = 0{,}96 \implies 1-\frac{\alpha}{2} = 0{,}98 \implies z_{1-\frac{\alpha}{2}} = 2{,}05$$
+
+$$P_1 = \frac{16}{40} = 0{,}4 \quad P_2 = \frac{22}{40} = 0{,}55$$
+
+Sustituyendo en el intervalo:
+
+$$
+\begin{aligned}
+& \left[ 0,4 - 0,55 - 2,05 \sqrt{\frac{0,4 \cdot 0,6}{40} + \frac{0,55 \cdot 0,45}{40}}, \right. \\
+& \left. 0,4 - 0,55 + 2,05 \sqrt{\frac{0,4 \cdot 0,6}{40} + \frac{0,55 \cdot 0,45}{40}} \right] \\
+& = [-0,15 - 0,2265, \quad -0,15 + 0,2265] \\
+& = [-0,3765, \quad 0,0765]
+\end{aligned}
+$$ El intervalo contiene al cero, pero el extremo inferior se aleja bastante de cero.
+
+**INTERVALO DE CONFIANZA PARA LA VARIANZA**
+
+Si tenemos una población $X \to N(\mu, \sigma^2)$ con $\sigma^2$ desconocida, entonces $\frac{(n-1)s_{n-1}^2}{\sigma^2} \to \chi_{n-1}^2$.
+
+El intervalo de confianza para la varianza poblacional al nivel de confianza $1-\alpha$ lo podemos obtener como sigue:
+
+$$P\left(\chi_{n-1, \frac{\alpha}{2}}^2 \le \frac{(n-1)s_{n-1}^2}{\sigma^2} \le \chi_{n-1, 1-\frac{\alpha}{2}}^2\right) = 1 - \alpha$$
+
+Despejando $\sigma^2$ tenemos:
+
+$$P\left(\frac{(n-1)s_{n-1}^2}{\chi_{n-1, 1-\frac{\alpha}{2}}^2} \le \sigma^2 \le \frac{(n-1)s_{n-1}^2}{\chi_{n-1, \frac{\alpha}{2}}^2}\right) = 1 - \alpha$$
+
+Es decir,
+
+$$\sigma^2 \in \left[\frac{(n-1)s_{n-1}^2}{\chi_{n-1, 1-\frac{\alpha}{2}}^2}, \quad \frac{(n-1)s_{n-1}^2}{\chi_{n-1, \frac{\alpha}{2}}^2}\right]$$
+
+**Ejemplo:** De acuerdo con las tablas de altura, los varones tienen una altura superior a las mujeres en la población española. Según las últimas tablas en el servicio militar, los varones entre 18 y 20 años presentan una varianza de 0,0529. De las mujeres no tenemos información, por ello tomamos una muestra de 101 mujeres entre 18 y 20 años y obtenemos $s_{n-1} = 0{,}18$. ¿Entre qué valores se encontrará la verdadera varianza a un nivel de 0,95 de confianza?
+
+$$1-\alpha = 0{,}95 \implies 1-\frac{\alpha}{2} = 0{,}975 \implies \chi_{100, 0{,}025}^2 = 74{,}22$$
+
+Sustituyendo en el intervalo tendremos:
+
+$$\left[\frac{100 \cdot 0{,}18^2}{129{,}56}, \quad \frac{100 \cdot 0{,}18^2}{74{,}22}\right] = [0{,}025, 0{,}0436]$$
+
+**INTERVALO DE CONFIANZA PARA EL COCIENTE DE VARIANZAS**
+
+La distribución muestral del cociente de varianzas muestrales, cuando teníamos dos poblaciones normales e independientes era:
+
+$$\frac{s_{n-1}^2 / \sigma_1^2}{s_{m-1}^2 / \sigma_2^2} \to F_{n-1, m-1}$$
+
+A partir de aquí deducimos el intervalo de confianza para el cociente de varianzas poblacionales al nivel de $1-\alpha$ y obtenemos:
+
+$$\frac{\sigma_1^2}{\sigma_2^2} \in \left[\frac{s_{n-1}^2}{s_{m-1}^2} \cdot \frac{1}{F_{n-1, m-1, 1-\frac{\alpha}{2}}}, \quad \frac{s_{n-1}^2}{s_{m-1}^2} \cdot \frac{1}{F_{n-1, m-1, \frac{\alpha}{2}}}\right]$$
+
+**Ejemplo:** Con los datos del ejemplo de la pág. 11, calcular el intervalo de confianza para el cociente de varianzas al nivel de confianza 0,95. ¿Podríamos aceptar la suposición de que las varianzas poblacionales son iguales?
+
+$$\begin{aligned}
+1-\alpha = 0{,}95 &\implies 1-\frac{\alpha}{2} = 0{,}975 \implies F_{30, 30, 0{,}975} = 2{,}07 \\
+\frac{\alpha}{2} = 0{,}025 &\implies F_{30, 30, 0{,}025} = \frac{1}{F_{30, 30, 0{,}975}} = \frac{1}{2{,}07}
+\end{aligned}$$
+
+$$\begin{aligned}
+s_{n-1}^2 &= \frac{n}{n-1}s_n^2 = \frac{31}{30} \cdot 2{,}5^2 = 5{,}47 \\
+s_{m-1}^2 &= \frac{m}{m-1}s_m^2 = \frac{31}{30} \cdot 3^2 = 9{,}3
+\end{aligned}$$
+
+Sustituyendo en el intervalo obtenemos:
+
+$$\left[\frac{5{,}47}{9{,}3} \cdot \frac{1}{2{,}07}, \quad \frac{5{,}47}{9{,}3} \cdot \frac{1}{1/2{,}07}\right] = [0{,}284, 1{,}218]$$
+
+El intervalo contiene al 1 y los extremos están bastante próximos al 1. Hay mayor diferencia por el extremo inferior, lo que indica que la varianza de la población X es menor que la de la población Y.
+
+## . PRECISIÓN Y TAMAÑO DE LA MUESTRA
+
+En general, cuanto más estrecho es un intervalo de confianza mayor precisión tendrá nuestra estimación (será menor el error muestral máximo). Ahora bien, la amplitud de un intervalo depende de dos factores: el nivel de confianza que decidimos utilizar y el tamaño del error típico (es la desviación típica) del estadístico utilizado como estimador.
+
+Si disminuimos el nivel de confianza, disminuye la amplitud del intervalo, pero aumenta el riesgo. Debemos intentar reducir la amplitud del intervalo manteniendo constante el nivel de confianza; para ello hay que reducir el error típico del estimador.
+
+En el caso de la media, el error típico es $\sigma_{\overline{x}} = \frac{\sigma}{\sqrt{n}}$. Por lo tanto, variando el tamaño muestral variaremos el error típico. Al aumentar $n$, disminuye $\sigma_{\overline{x}}$. Por tanto, manipulando el tamaño de la muestra podemos obtener los intervalos de la precisión que deseemos.
+
+**Para la media:**
+
+$$E = z_{1-\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}} \implies n = \left(z_{1-\frac{\alpha}{2}}\frac{\sigma}{E}\right)^2$$
+
+$$E = t_{n-1, 1-\frac{\alpha}{2}}\frac{s_{n-1}}{\sqrt{n}} \implies n = \left(t_{n-1, 1-\frac{\alpha}{2}}\frac{s_{n-1}}{E}\right)^2$$
+
+**Para la proporción:**
+
+$$E = z_{1-\frac{\alpha}{2}}\sqrt{\frac{PQ}{n}} \implies n = \frac{PQ \cdot z_{1-\frac{\alpha}{2}}^2}{E^2}$$
+
+**Ejemplo:** Queremos estimar la media de una población normal con varianza poblacional igual a 4. ¿Qué tamaño muestral debemos tomar para que $E = 0{,}02$ al nivel de confianza 0,95?
+
+$$1-\alpha = 0{,}95 \implies \alpha = 0{,}05 \implies 1-\frac{\alpha}{2} = 0{,}975 \implies z_{0{,}975} = 1{,}96$$
+
+Como conocemos la varianza poblacional, el tamaño muestral será:
+
+$$n = \left(z_{1-\frac{\alpha}{2}}\frac{\sigma}{E}\right)^2 = \left(1{,}96 \frac{2}{0{,}02}\right)^2 = (196)^2 = 38416$$
+
+¿Y si queremos un error $E = 1$ al mismo nivel de confianza? En este caso:
+
+$$n = \left(z_{1-\frac{\alpha}{2}}\frac{\sigma}{E}\right)^2 = \left(1{,}96 \frac{2}{1}\right)^2 = (3{,}92)^2 = 15{,}37$$
+
+Redondeamos a $n = 16$.
+
+# . INTERVALOS DE CONFIANZA PARA 1 Y 2 POBLACIONES
+
+## INTRODUCCIÓN Y NOMENCLATURA
+
+Un **intervalo de confianza** atribuya a un parámetro poblacional desconocido un rango de valores posibles $[a, b]$ obtenidos a partir de los datos muestrales, garantizando un determinado **nivel de confianza** $(1-\alpha)$.
+
+**Nomenclatura utilizada:**
+
+-   $\mu$: Media poblacional
+-   $\overline{x}$: Media muestral
+-   $\sigma$: Desviación típica poblacional
+-   $\sigma^2$: Varianza poblacional
+-   $S$: Desviación típica muestral
+-   $S^2$: Varianza muestral
+-   $p$: Proporción poblacional
+-   $\hat{p}$: Proporción muestral
+-   $n$: Tamaño de la muestra
+-   $\alpha$: Nivel de significación (riesgo)
+-   $1 - \alpha$: Nivel de confianza
+-   $z_{\alpha/2}$: Punto crítico de la distribución Normal Estándar $N(0,1)$ con área superior igual a $\alpha/2$
+-   $t_{(\alpha/2, \nu)}$: Punto crítico de la distribución $t$-Student con $\nu$ grados de libertad.
+-   $\chi^2_{(\alpha/2, \nu)}$: Punto crítico de la distribución Ji-cuadrado ($\chi^2$) con $\nu$ grados de libertad.
+-   $F_{(\alpha/2, \nu_1, \nu_2)}$: Punto crítico de la distribución $F$ de Fisher-Snedecor con $\nu_1$ y $\nu_2$ grados de libertad.
+
+## . INTERVALOS DE CONFIANZA PARA UNA POBLACIÓN
+
+-   **Media de la población (Varianza poblacional conocida)**
+
+**Teoría:** Cuando la varianza poblacional $\sigma^2$ es conocida y la población sigue una distribución normal (o el tamaño muestral es grande $n \ge 30$), el estadístico pivote $\frac{\overline{x}-\mu}{\sigma/\sqrt{n}}$ sigue una distribución normal estándar $N(0,1)$.
+
+**Fórmula del Intervalo:**
+
+$$\mu \in \left( \overline{x} - z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}, \quad \overline{x} + z_{\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}} \right)$$
+
+Donde:
+
+-   **Nivel de confianza:** $1 - \alpha$
+-   **Error de muestreo (m.e.):** $z_{\alpha/2} \frac{\sigma}{\sqrt{n}}$
+-   **Distribución:** Normal Estándar $N(0,1)$
+
+```{r}
+library(ggplot2)
+
+# Configuración del nivel de significación
+alpha <- 0.05
+z <- qnorm(1 - alpha / 2)
+
+# Generación del gráfico N(0, 1)
+ggplot(data.frame(x = c(-3.5, 3.5)), aes(x)) +
+  # Curva verde exterior
+  stat_function(fun = dnorm, color = "#006400", linewidth = 1.2) +
+  # Área verde sombreada (1 - alpha)
+  stat_function(fun = dnorm, xlim = c(-z, z), geom = "area", fill = "#90ee90", alpha = 0.9) +
+  # Líneas verticales grises
+  geom_vline(xintercept = c(-z, z), color = "#a0a0a0", linewidth = 0.8) +
+  # Línea del eje X con flecha
+  geom_segment(aes(x = -3.5, y = 0, xend = 3.6, yend = 0), 
+               arrow = arrow(length = unit(0.2, "cm")), color = "#a0a0a0", linewidth = 0.6) +
+  # Texto 1 - alpha y N(0, 1)
+  annotate("text", x = 0, y = 0.12, label = expression(1 - alpha), size = 6) +
+  annotate("text", x = 2.5, y = 0.35, label = expression(N(0, 1)), size = 6) +
+  # Etiquetas de los cuantiles en el eje X
+  scale_x_continuous(breaks = c(-z, z), labels = c(expression(-z[alpha/2]), expression(z[alpha/2]))) +
+  # Limpieza de estilos
+  theme_void() +
+  theme(
+    axis.text.x = element_text(size = 14, color = "black", vjust = -0.5),
+    plot.margin = margin(10, 10, 10, 10)
+  )
+```
+
+**Ejercicio**
+
+La dirección de calidad académica de una universidad desea estimar el puntaje promedio global en la prueba estatal Saber Pro de todos los estudiantes graduandos de la facultad de educación. Históricamente se sabe que la desviación estándar de la facultad es de $\sigma = 15$ puntos. Se selecciona una muestra aleatoria de $n = 49$ estudiantes cuya nota media muestral fue de $\bar{x} = 158$ puntos.
+
+Determine un intervalo de confianza del $95\%$ para el puntaje promedio real de la facultad.
+
+**Datos del problema:**
+
+-   $n = 49$
+-   $\bar{x} = 158$
+-   $\sigma = 15$
+-   Nivel de confianza: $1 - \alpha = 0.95 \implies \alpha = 0.05 \implies \frac{\alpha}{2} = 0.025$
+
+1.  $Z$:
+
+    $$
+    z_{0.025} = 1.96
+    $$
+
+2.  **Margen de error (m.e.):**
+
+    $$
+    m.e = z_{\alpha/2} \frac{\sigma}{\sqrt{n}} = (1.96) \frac{15}{\sqrt{49}} = (1.96)(2.1428) = 4.20
+    $$
+
+3.  **Límites de Confianza:**
+
+    -   $L_i = 158 - 4.20 = 153.80$
+    -   $L_s = 158 + 4.20 = 162.20$
+
+$$
+P(153.80 < \mu < 162.20) = 95\%
+$$
+
+```{r grafico-caso1, echo=TRUE, fig.width=7, fig.height=3.5}
+# Gráfica de la distribución para el Caso 1
+z_crit <- qnorm(0.975)
+x <- seq(-3.5, 3.5, length.out = 1000)
+df <- data.frame(x = x, y = dnorm(x))
+df_center <- subset(df, x >= -z_crit & x <= z_crit)
+
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(data = df_center, fill = "#1C82FF", alpha = 0.8) +
+  geom_vline(xintercept = c(-z_crit, z_crit), color = "gray50", linetype = "dashed") +
+  geom_line(color = "#1E00FA", size = 1.1) +
+  annotate("text", x = 0, y = 0.18, label = "0.95", color = "black", size = 5, fontface = "bold") +
+  annotate("text", x = 0, y = 0.10, label = expression(1 - alpha), size = 5) +
+  annotate("text", x = -2.3, y = 0.04, label = "0.025", color = "black", size = 4) +
+  annotate("text", x = 2.3, y = 0.04, label = "0.025", color = "black", size = 4) +
+  annotate("text", x = 2.6, y = 0.35, label = "N(0, 1)", size = 5, fontface = "italic") +
+  scale_x_continuous(breaks = c(-z_crit, z_crit), labels = c("Li = 153.8", "Ls = 162.2")) +
+  theme_minimal() +
+  theme(
+    axis.title = element_blank(), axis.text.y = element_blank(),
+    axis.text.x = element_text(color = "black", size = 12, face = "bold"),
+    panel.grid = element_blank()
+  )
+```
+
+**Interpretación:**
+
+Con un nivel de confianza del $95\%$, se estima que el verdadero puntaje promedio en las pruebas Saber Pro para la facultad de educación se encuentra entre $153.80$ y $162.20$ puntos. Existe un $5\%$ de probabilidad de que la media poblacional real esté fuera de este rango.
+
+**Gráfica de 100 intervalos**
+
+```{r}
+#| label: fig-intervalos
+#| fig-width: 9
+#| fig-height: 7
+#| warning: false
+#| message: false
+
+library(ggplot2)
+library(dplyr)
+
+# Fijar semilla para reproducibilidad
+set.seed(2024)
+
+# Parámetros iniciales
+num_simulaciones <- 100
+mu_real <- 158
+sigma <- 15
+n <- 49
+confianza <- 0.95
+z <- qnorm(1 - (1 - confianza) / 2) # 1.96
+
+# Margen de error constante
+me <- z * (sigma / sqrt(n))
+
+# Simulación
+datos <- data.frame(id = 1:num_simulaciones) %>%
+  rowwise() %>%
+  mutate(
+    # Generar muestra aleatoria y obtener su media
+    media_muestral = mean(rnorm(n, mean = mu_real, sd = sigma)),
+    li = media_muestral - me,
+    ls = media_muestral + me,
+    # Verificar si el intervalo contiene a mu_real
+    contiene_mu = ifelse(li <= mu_real & ls >= mu_real, "Contiene µ (95%)", "NO contiene µ")
+  ) %>%
+  ungroup()
+
+# Conteo de éxitos
+exitos <- sum(datos$contiene_mu == "Contiene µ (95%)")
+fraccion <- exitos / num_simulaciones * 100
+
+# Graficar
+ggplot(datos, aes(x = id, y = media_muestral, color = contiene_mu)) +
+  geom_hline(yintercept = mu_real, color = "black", linetype = "dashed", size = 1) +
+  geom_errorbar(aes(ymin = li, ymax = ls), width = 0.2, alpha = 0.8) +
+  geom_point(size = 1.5) +
+  scale_color_manual(values = c("Contiene µ (95%)" = "#2b5c8f", "NO contiene µ" = "#d9534f")) +
+  labs(
+    title = "Simulación de 100 Intervalos de Confianza al 95%",
+    x = "Número de Muestra / Simulación",
+    y = "Puntaje Muestral y Límites de Confianza",
+    color = "Estado del Intervalo"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    legend.position = "top",
+    plot.title = element_text(face = "bold"),
+    panel.grid.minor = element_blank()
+  )
+```
+
+**Interpretacion de la gráfica** <br>
+
+Bajo un enfoque de muestreo repetido, si se seleccionan 100 muestras aleatorias del mismo tamaño ($n=49$) y se construye un intervalo de confianza del 95% para cada una, aproximadamente 95 intervalos incluirán el verdadero puntaje promedio poblacional ($\mu$), mientras que los 5 restantes no contendrán dicho valor verdadero.
+
+-   **Media de la población (Varianza poblacional desconocida)**
+
+**Teoría:** Si la varianza poblacional $\sigma^2$ es desconocida y la población es normal, estimamos la desviación típica poblacional mediante la cuasi-desviación típica muestral $S$. El estadístico pivote resultante sigue una distribución $t$-Student con $n-1$ grados de libertad.
+
+**Fórmula del Intervalo:**
+
+$$\mu \in \left( \overline{x} - t_{\left(\frac{\alpha}{2}, n-1\right)}\frac{S}{\sqrt{n}}, \quad \overline{x} + t_{\left(\frac{\alpha}{2}, n-1\right)}\frac{S}{\sqrt{n}} \right)$$
+
+------------------------------------------------------------------------
+
+```{r}
+library(ggplot2)
+
+# Parámetros (grados de libertad y nivel de significación)
+df_val <- 10
+alpha <- 0.05
+t_val <- qt(1 - alpha / 2, df = df_val)
+
+# Generación del gráfico t-Student
+ggplot(data.frame(x = c(-3.8, 3.8)), aes(x)) +
+  # Curva verde exterior
+  stat_function(fun = dt, args = list(df = df_val), color = "#006400", linewidth = 1.2) +
+  # Área verde sombreada (1 - alpha)
+  stat_function(fun = dt, args = list(df = df_val), xlim = c(-t_val, t_val), geom = "area", fill = "#90ee90", alpha = 0.9) +
+  # Líneas verticales grises
+  geom_vline(xintercept = c(-t_val, t_val), color = "#a0a0a0", linewidth = 0.8) +
+  # Línea del eje X con flecha
+  geom_segment(aes(x = -3.8, y = 0, xend = 3.9, yend = 0), 
+               arrow = arrow(length = unit(0.2, "cm")), color = "#a0a0a0", linewidth = 0.6) +
+  # Texto 1 - alpha y t-Student
+  annotate("text", x = 0, y = 0.12, label = expression(1 - alpha), size = 6) +
+  annotate("text", x = 2.6, y = 0.33, label = "t-Student", size = 6) +
+  # Etiquetas en el eje X
+  scale_x_continuous(breaks = c(-t_val, t_val), labels = c(expression(-t[alpha/2]), expression(t[alpha/2]))) +
+  # Limpieza de estilos
+  theme_void() +
+  theme(
+    axis.text.x = element_text(size = 14, color = "black", vjust = -0.5),
+    plot.margin = margin(10, 10, 10, 10)
+  )
+```
+
+**Ejercicio**
+
+Un grupo de investigación pedagógica investiga la cantidad de horas semanales que los estudiantes de primer semestre dedican al trabajo autónomo en una plataforma virtual. Se toma una muestra aleatoria de $n = 9$ estudiantes, registrando las siguientes horas:
+
+$$
+X_i = \{8.5, \, 10.0, \, 6.5, \, 12.0, \, 9.0, \, 7.5, \, 11.5, \, 8.0, \, 10.5\}
+$$
+
+Calcule e interprete un intervalo del $99\%$ de confianza para el promedio real de horas semanales de estudio autónomo. Asuma distribución normal.
+
+**Datos del problema:**
+
+-   $n = 9$
+-   Grados de libertad ($v$): $n - 1 = 8$
+-   Media muestral ($\bar{x}$): $\frac{\sum x_i}{n} = 9.28$ horas
+-   Desviación estándar muestral ($S$): $1.79$ horas
+-   Nivel de confianza: $1 - \alpha = 0.99 \implies \alpha = 0.01 \implies \frac{\alpha}{2} = 0.005$
+
+1.  $t$-Student ($v = 8$):
+
+    $$
+    t_{(0.005, \, 8)} = 3.355
+    $$
+
+2.  **Margen de error (m.e.):**
+
+    $$
+    m.e = t_{(\alpha/2, \, n-1)} \frac{S}{\sqrt{n}} = (3.355) \frac{1.79}{\sqrt{9}} = (3.355)(0.5967) = 2.00
+    $$
+
+3.  **Límites de Confianza:**
+
+    -   $L_i = 9.28 - 2.00 = 7.28$
+    -   $L_s = 9.28 + 2.00 = 11.28$
+
+$$
+P(7.28 < \mu < 11.28) = 99\%
+$$
+
+```{r grafico-caso2, echo=TRUE, fig.width=7, fig.height=3.5}
+# Gráfica t-Student
+t_crit <- qt(0.995, df = 8)
+x <- seq(-4, 4, length.out = 1000)
+df <- data.frame(x = x, y = dt(x, df = 8))
+df_center <- subset(df, x >= -t_crit & x <= t_crit)
+
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(data = df_center, fill = "#8C5046", alpha = 0.8) +
+  geom_vline(xintercept = c(-t_crit, t_crit), color = "gray50", linetype = "dashed") +
+  geom_line(color = "#702F25", size = 1.1) +
+  annotate("text", x = 0, y = 0.18, label = "0.99", color = "black", size = 5, fontface = "bold") +
+  annotate("text", x = -3, y = 0.03, label = "0.005", color = "black", size = 4) +
+  annotate("text", x = 3, y = 0.03, label = "0.005", color = "black", size = 4) +
+  annotate("text", x = 2.8, y = 0.35, label = "t-Student (df=8)", size = 4.5, fontface = "italic") +
+  scale_x_continuous(breaks = c(-t_crit, t_crit), labels = c("Li = 7.28", "Ls = 11.28")) +
+  theme_minimal() +
+  theme(
+    axis.title = element_blank(), axis.text.y = element_blank(),
+    axis.text.x = element_text(color = "black", size = 12, face = "bold"),
+    panel.grid = element_blank()
+  )
+```
+
+**Interpretación:**
+
+Con una confianza del $99\%$, el tiempo medio semanal de trabajo autónomo en plataforma de los estudiantes de primer semestre se encuentra entre $7.28$ y $11.28$ horas.
+
+**Gráfica de 100 intervalos**
+
+```{r}
+#| fig-width: 9.5
+#| fig-height: 7
+#| warning: false
+#| message: false
+
+library(ggplot2)
+library(dplyr)
+
+# Semilla para reproducibilidad
+set.seed(999)
+
+# Parámetros poblacionales asumidos según el ejercicio
+num_simulaciones <- 100
+mu_real <- 9.28
+sigma_poblacional <- 1.79
+n <- 9
+df <- n - 1
+confianza <- 0.99
+alpha <- 1 - confianza
+
+# Valor crítico t para 99% de confianza y 8 df
+t_critico <- qt(1 - alpha / 2, df = df) # 3.355
+
+# Simulación de 100 muestras aleatorias
+datos <- data.frame(id = 1:num_simulaciones) %>%
+  rowwise() %>%
+  mutate(
+    # Muestra aleatoria de tamaño n = 9
+    muestra = list(rnorm(n, mean = mu_real, sd = sigma_poblacional)),
+    # Estadísticos calculados de cada muestra independiente
+    x_bar = mean(muestra),
+    s = sd(muestra),
+    me = t_critico * (s / sqrt(n)),
+    li = x_bar - me,
+    ls = x_bar + me,
+    # Evaluación de cobertura sobre la media real
+    contiene_mu = ifelse(li <= mu_real & ls >= mu_real, "Contiene µ (99%)", "NO contiene µ")
+  ) %>%
+  ungroup()
+
+# Métricas de la simulación
+exitos <- sum(datos$contiene_mu == "Contiene µ (99%)")
+porcentaje_exito <- (exitos / num_simulaciones) * 100
+
+# Gráfica interactiva / estática con ggplot2
+ggplot(datos, aes(x = id, y = x_bar, color = contiene_mu)) +
+  # Línea horizontal del parámetro poblacional verdadero μ = 9.28
+  geom_hline(yintercept = mu_real, color = "black", linetype = "dashed", size = 1) +
+  # Barras de error para cada intervalo
+  geom_errorbar(aes(ymin = li, ymax = ls), width = 0.25, alpha = 0.85, size = 0.7) +
+  # Punto central correspondiente a la media muestral x̄
+  geom_point(size = 1.6) +
+  # Esquema de colores
+  scale_color_manual(values = c("Contiene µ (99%)" = "#8c3b3b", "NO contiene µ" = "#2b5c8f")) +
+  labs(
+    title = "Simulación de 100 Intervalos de Confianza al 99%",
+    x = "Número de Muestra / Simulación",
+    y = "Horas Semanales de Estudio Autónomo",
+    color = "Estado del Intervalo"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "top",
+    plot.title = element_text(face = "bold", size = 13),
+    panel.grid.minor = element_blank()
+  )
+```
+
+**Interpretación de la gráfica** <br>
+
+Bajo un proceso de muestreo repetido (con muestras aleatorias de tamaño $n = 9$), si construimos 100 intervalos de confianza al 99%, se espera que 99 de esos intervalos contengan la verdadera media poblacional ($\mu$), mientras que 1 de ellos no la contendrá.
+
+-   **Proporción de la población**
+
+**Teoría:** Para variables cualitativas binomiales, si el tamaño muestral $n$ es suficientemente grande, la proporción muestral $\hat{p}$ se distribuye asintóticamente como una distribución normal $N\left(p, \sqrt{\frac{p(1-p)}{n}}\right)$ mediante la aproximación del Teorema Central del Límite.
+
+**Fórmula del Intervalo:**
+
+$$p \in \left( \hat{p} - z_{\frac{\alpha}{2}}\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}, \quad \hat{p} + z_{\frac{\alpha}{2}}\sqrt{\frac{\hat{p}(1-\hat{p})}{n}} \right)$$
+
+```{r}
+library(ggplot2)
+
+# Configuración del nivel de significación
+alpha <- 0.05
+z <- qnorm(1 - alpha / 2)
+
+# Generación del gráfico N(0, 1)
+ggplot(data.frame(x = c(-3.5, 3.5)), aes(x)) +
+  # Curva verde exterior
+  stat_function(fun = dnorm, color = "#006400", linewidth = 1.2) +
+  # Área verde sombreada (1 - alpha)
+  stat_function(fun = dnorm, xlim = c(-z, z), geom = "area", fill = "#90ee90", alpha = 0.9) +
+  # Líneas verticales grises
+  geom_vline(xintercept = c(-z, z), color = "#a0a0a0", linewidth = 0.8) +
+  # Línea del eje X con flecha
+  geom_segment(aes(x = -3.5, y = 0, xend = 3.6, yend = 0), 
+               arrow = arrow(length = unit(0.2, "cm")), color = "#a0a0a0", linewidth = 0.6) +
+  # Texto 1 - alpha y N(0, 1)
+  annotate("text", x = 0, y = 0.12, label = expression(1 - alpha), size = 6) +
+  annotate("text", x = 2.5, y = 0.35, label = expression(N(0, 1)), size = 6) +
+  # Etiquetas de los cuantiles en el eje X
+  scale_x_continuous(breaks = c(-z, z), labels = c(expression(-z[alpha/2]), expression(z[alpha/2]))) +
+  # Limpieza de estilos
+  theme_void() +
+  theme(
+    axis.text.x = element_text(size = 14, color = "black", vjust = -0.5),
+    plot.margin = margin(10, 10, 10, 10)
+  )
+```
+
+**Ejercicio**
+
+La secretaría de educación departamental desea evaluar la proporción de estudiantes de secundaria que se encuentran en riesgo de deserción por falta de conectividad a internet en sus hogares. De una muestra representativa de $n = 250$ estudiantes encuestados, $45$ manifestaron no contar con acceso a internet.
+
+Estime un intervalo de confianza del $95\%$ para la proporción poblacional real de estudiantes sin conectividad.
+
+**Datos del problema:**
+
+-   $n = 250$
+-   Casos de interés ($a$): $45$
+-   Proporción muestral ($\hat{p}$): $\frac{45}{250} = 0.18 \quad (18\%)$
+-   $1 - \hat{p} = 0.82 \quad (82\%)$
+-   $1 - \alpha = 0.95 \implies z_{\alpha/2} = 1.96$
+
+1.  **Margen de error (m.e.):**
+
+    $$
+    m.e = (1.96) \sqrt{\frac{(0.18)(0.82)}{250}} = (1.96) \sqrt{0.0005904} = (1.96)(0.0243) \approx 0.0476 \quad (4.76\%)
+    $$
+
+2.  **Límites de Confianza:**
+
+    -   $L_i = 0.18 - 0.0476 = 0.1324 \quad (13.24\%)$
+    -   $L_s = 0.18 + 0.0476 = 0.2276 \quad (22.76\%)$
+
+$$
+P(0.1324 < p < 0.2276) = 95\%
+$$
+
+```{r grafico-proporcion, echo=TRUE, fig.width=7, fig.height=3.5}
+library(ggplot2)
+library(dplyr)
+
+# 1. Definición de parámetros del ejercicio (Proporción 95% de confianza)
+z_crit <- 1.96
+x_vals <- seq(-3.5, 3.5, length.out = 1000)
+
+df <- data.frame(
+  x = x_vals,
+  y = dnorm(x_vals)
+)
+
+# Filtrar área central (95%)
+df_center <- df %>% 
+  filter(x >= -z_crit & x <= z_crit)
+
+# 2. Gráfica corregida
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(data = df_center, fill = "#8752E3", alpha = 0.8) +
+  geom_vline(xintercept = c(-z_crit, z_crit), color = "gray50", linetype = "dashed") +
+  geom_line(color = "#6213F2", linewidth = 1.1) +  # Corregido: 'linewidth' en lugar de 'size'
+  annotate("text", x = 0, y = 0.18, label = "0.95", color = "black", size = 5, fontface = "bold") +
+  annotate("text", x = -2.3, y = 0.04, label = "0.025", color = "black", size = 4) +
+  annotate("text", x = 2.3, y = 0.04, label = "0.025", color = "black", size = 4) +
+  scale_x_continuous(breaks = c(-z_crit, z_crit), labels = c("Li = 13.24%", "Ls = 22.76%")) +
+  theme_minimal() +
+  theme(
+    axis.title = element_blank(), 
+    axis.text.y = element_blank(),
+    axis.text.x = element_text(color = "black", size = 12, face = "bold"),
+    panel.grid = element_blank()
+  )
+```
+
+**Interpretación:**
+
+Con un nivel de confianza del $95\%$, se estima que el porcentaje de estudiantes de secundaria sin conexión a internet en el departamento está comprendido entre el $13.24\%$ y el $22.76\%$.
+
+**Gráfica de los 100 intervalos**
+
+```{r}
+#| label: fig-intervalos-proporcion
+#| fig-width: 9.5
+#| fig-height: 7
+#| warning: false
+#| message: false
+
+library(ggplot2)
+library(dplyr)
+
+# Semilla para reproducibilidad
+set.seed(2026)
+
+# Parámetros poblacionales y de diseño
+num_simulaciones <- 100
+p_real <- 0.18           # Proporción real asumida (18%)
+n <- 250                 # Tamaño muestral
+confianza <- 0.95
+z_critico <- 1.96
+
+# Simulación de 100 muestras de una distribución binomial
+datos <- data.frame(id = 1:num_simulaciones) %>%
+  rowwise() %>%
+  mutate(
+    # Éxitos en n ensayos de Bernoulli con probabilidad p_real
+    exitos = rbinom(1, size = n, prob = p_real),
+    p_hat = exitos / n,
+    # Margen de error muestral
+    me = z_critico * sqrt((p_hat * (1 - p_hat)) / n),
+    li = p_hat - me,
+    ls = p_hat + me,
+    # Evaluación de si el intervalo cubre la proporción real p = 0.18
+    contiene_p = ifelse(li <= p_real & ls >= p_real, "Contiene p (95%)", "NO contiene p")
+  ) %>%
+  ungroup()
+
+# Conteo de aciertos en la simulación
+exitos_sim <- sum(datos$contiene_p == "Contiene p (95%)")
+porcentaje_exito <- (exitos_sim / num_simulaciones) * 100
+
+# Gráfica de los 100 intervalos
+ggplot(datos, aes(x = id, y = p_hat, color = contiene_p)) +
+  # Línea horizontal para la proporción real p = 0.18
+  geom_hline(yintercept = p_real, color = "black", linetype = "dashed", linewidth = 1) +
+  # Barras de error de cada intervalo
+  geom_errorbar(aes(ymin = li, ymax = ls), width = 0.25, alpha = 0.85, linewidth = 0.7) +
+  # Punto central de la proporción estimada p_hat
+  geom_point(size = 1.6) +
+  # Colores según el estado del intervalo
+  scale_color_manual(values = c("Contiene p (95%)" = "#8752E3", "NO contiene p" = "#d9534f")) +
+  # Formato de porcentaje en el eje Y
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  labs(
+    title = "Simulación de 100 Intervalos de Confianza al 95% (Proporción)",
+    x = "Número de Muestra / Simulación",
+    y = "Proporción Muestral (p̂) e Intervalo de Confianza",
+    color = "Estado del Intervalo"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "top",
+    plot.title = element_text(face = "bold", size = 13),
+    panel.grid.minor = element_blank()
+  )
+
+```
+
+**Interpretación de la gráfica** <br> "Bajo un proceso de muestreo repetido (con muestras aleatorias de tamaño $n = 250$), si construimos 100 intervalos de confianza al 95%, se espera que 95 de esos intervalos contengan la verdadera proporción poblacional ($p = 18\%$), mientras que 5 de ellos no la contendrán.
+
+-   **Varianza de la población**
+
+**Teoría:** Para estimar la dispersión de una población normal con varianza $\sigma^2$ desconocida, la variable aleatoria $\frac{(n-1)S^2}{\sigma^2}$ sigue una distribución Ji-cuadrado ($\chi^2$) con $n-1$ grados de libertad. Puesto que la distribución $\chi^2$ es asimétrica, las cotas críticas dividen la cola inferior ($1-\alpha/2$) y la cola superior ($\alpha/2$).
+
+**Fórmula del Intervalo:**
+
+$$\sigma^2 \in \left( \frac{(n-1)S^2}{\chi^2_{\left(\frac{\alpha}{2}, n-1\right)}}, \quad \frac{(n-1)S^2}{\chi^2_{\left(1-\frac{\alpha}{2}, n-1\right)}} \right)$$
+
+```{r}
+library(ggplot2)
+
+# Parámetros
+df_val <- 7
+alpha <- 0.05
+chi_inf <- qchisq(alpha / 2, df = df_val)
+chi_sup <- qchisq(1 - alpha / 2, df = df_val)
+
+# Generación del gráfico Chi^2
+ggplot(data.frame(x = c(0, 18)), aes(x)) +
+  # Curva verde exterior
+  stat_function(fun = dchisq, args = list(df = df_val), color = "#006400", linewidth = 1.2) +
+  # Área verde sombreada (1 - alpha)
+  stat_function(fun = dchisq, args = list(df = df_val), xlim = c(chi_inf, chi_sup), geom = "area", fill = "#90ee90", alpha = 0.9) +
+  # Líneas verticales grises
+  geom_vline(xintercept = c(chi_inf, chi_sup), color = "#a0a0a0", linewidth = 0.8) +
+  # Ejes X e Y con flechas
+  geom_segment(aes(x = 0, y = 0, xend = 18.5, yend = 0), 
+               arrow = arrow(length = unit(0.2, "cm")), color = "#a0a0a0", linewidth = 0.6) +
+  geom_segment(aes(x = 0, y = 0, xend = 0, yend = 0.13), 
+               arrow = arrow(length = unit(0.2, "cm")), color = "#a0a0a0", linewidth = 0.6) +
+  # Texto 1 - alpha y Chi-cuadrado
+  annotate("text", x = 6.5, y = 0.045, label = expression(1 - alpha), size = 6) +
+  annotate("text", x = 14, y = 0.09, label = expression(chi^2), size = 7) +
+  annotate("text", x = 14, y = 0.07, label = "Chi-cuadrado", size = 4.5) +
+  # Etiquetas en el eje X
+  scale_x_continuous(breaks = c(chi_inf, chi_sup), labels = c(expression(chi[1-alpha/2]^2), expression(chi[alpha/2]^2))) +
+  # Limpieza de estilos
+  theme_void() +
+  theme(
+    axis.text.x = element_text(size = 14, color = "black", vjust = -0.5),
+    plot.margin = margin(10, 10, 10, 10)
+  )
+```
+
+**Ejercicio**
+
+Un comité de evaluación curricular afirma que la variabilidad en las notas finales otorgadas por los docentes del área de matemáticas es homogénea, manteniendo una desviación estándar esperada de máximo $\sigma = 0.40$ puntos.
+
+Para verificar esta afirmación, se analizan las notas de una muestra de $n = 6$ docentes seleccionados al azar, obteniendo una varianza muestral de $S^2 = 0.45$.
+
+Calcule un intervalo del $95\%$ de confianza para la varianza y la desviación estándar poblacional, e indique si la afirmación del comité es acertada.
+
+**Datos del problema:**
+
+-   $n = 6 \implies v = n - 1 = 5$
+-   $S^2 = 0.45$
+-   Nivel de confianza: $1 - \alpha = 0.95 \implies \alpha = 0.05$
+    -   $\frac{\alpha/2} = 0.025$
+    -   $1 - \frac{\alpha}{2} = 0.975$
+
+**Chi-cuadrado (**$\chi^2$ con $df = 5$):
+
+-   $\chi^2_{(0.025, \, 5)} = 12.833$
+-   $\chi^2_{(0.975, \, 5)} = 0.831$
+
+1.  **Intervalo para la Varianza (**$\sigma^2$):
+
+    $$
+    L_i = \frac{(5)(0.45)}{12.833} = 0.1753
+    $$
+
+    $$
+    L_s = \frac{(5)(0.45)}{0.831} = 2.7076
+    $$
+
+    $$
+    P(0.1753 < \sigma^2 < 2.7076) = 95\%
+    $$
+
+2.  **Intervalo para la Desviación Estándar (**$\sigma$):
+
+    $$
+    \sqrt{0.1753} < \sigma < \sqrt{2.7076} \implies 0.4187 < \sigma < 1.6455
+    $$
+
+    $$
+    P(0.4187 < \sigma < 1.6455) = 95\%
+    $$
+
+```{r grafico-chicuadrado, echo=TRUE, fig.width=7, fig.height=3.5}
+#| label: fig-chi-cuadrado
+#| fig-width: 8.5
+#| fig-height: 6.5
+#| warning: false
+#| message: false
+
+library(ggplot2)
+library(dplyr)
+
+# 1. Parámetros de la distribución
+df <- 5
+confianza <- 0.95
+alpha <- 1 - confianza
+
+# Valores críticos teóricos Chi-cuadrado para df = 5
+val_crit_izq <- qchisq(alpha / 2, df = df)      # Chi^2_{1 - alpha/2} (0.831)
+val_crit_der <- qchisq(1 - alpha / 2, df = df)  # Chi^2_{alpha/2} (12.833)
+
+# Valores de los límites según la imagen del usuario
+Li <- 0.175
+Ls <- 2.708
+
+# 2. Creación del dataframe para la curva Chi-cuadrado
+x_vals <- seq(0.01, 15, length.out = 1000)
+df_curva <- data.frame(
+  x = x_vals,
+  y = dchisq(x_vals, df = df)
+)
+
+# 3. Filtrar datos para el área sombreada magenta (entre los cortes)
+df_sombra <- df_curva %>%
+  filter(x >= val_crit_izq & x <= val_crit_der)
+
+# 4. Construcción de la gráfica
+ggplot() +
+  # Área sombreada magenta central (de la primera imagen)
+  geom_area(data = df_sombra, aes(x = x, y = y), fill = "#e024c3", alpha = 0.85) +
+  # Curva Chi-cuadrado (magenta oscuro)
+  geom_line(data = df_curva, aes(x = x, y = y), color = "#7a0066", size = 1.2) +
+  
+  # Ejes con flechas (de la segunda imagen)
+  # Eje Y (vertical en el origen)
+  geom_segment(aes(x = 0, xend = 0, y = 0, yend = 0.18), 
+               color = "gray50", size = 0.6, 
+               arrow = arrow(length = unit(0.2, "cm"), type = "closed")) +
+  # Eje X (horizontal en la base)
+  geom_segment(aes(x = 0, xend = 15.5, y = 0, yend = 0), 
+               color = "gray50", size = 0.6, 
+               arrow = arrow(length = unit(0.2, "cm"), type = "closed")) +
+               
+  # Líneas verticales grises extendidas (de la segunda imagen)
+  geom_segment(aes(x = val_crit_izq, xend = val_crit_izq, y = -0.035, yend = 0.18), color = "gray50", size = 0.6) +
+  geom_segment(aes(x = val_crit_der, xend = val_crit_der, y = -0.035, yend = 0.18), color = "gray50", size = 0.6) +
+  
+  # Etiquetas centrales de área (0.95 y 1 - α)
+  annotate("text", x = 4.5, y = 0.08, label = "0.95", size = 6.5, fontface = "bold") +
+  annotate("text", x = 4.5, y = 0.06, label = "1 - alpha", parse = TRUE, size = 5) +
+  
+  # Áreas de las colas (0.025)
+  annotate("text", x = 0.3, y = 0.02, label = "0.025", size = 4) +
+  annotate("text", x = 14, y = 0.02, label = "0.025", size = 4) +
+  
+  # Etiqueta "Chi-cuadrado (df=5)" y símbolismo χ²
+  annotate("text", x = 11, y = 0.14, label = "Chi-cuadrado (df=5)", size = 5, fontface = "italic") +
+  annotate("text", x = 11, y = 0.16, label = "chi^2", parse = TRUE, size = 6) +
+  
+  # Valores del intervalo Li y Ls (en negrita)
+  annotate("text", x = val_crit_izq, y = -0.015, label = paste0("Li = ", Li), fontface = "bold", size = 4) +
+  annotate("text", x = val_crit_der, y = -0.015, label = paste0("Ls = ", Ls), fontface = "bold", size = 4) +
+  
+  # Ajuste del sistema de coordenadas para permitir textos bajo el eje X
+  coord_cartesian(xlim = c(-0.5, 16), ylim = c(-0.04, 0.19), clip = "off") +
+  theme_void() +
+  theme(
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.05, margin = margin(b = 4)),
+    plot.subtitle = element_text(size = 11, hjust = 0.05, margin = margin(b = 15)),
+    plot.margin = margin(t = 20, r = 20, b = 35, l = 20)
+  )
+```
+
+**Conclusión e Interpretación:**
+
+-   **Evaluación de la afirmación:** La afirmación del comité NO es acertada. El comité sostiene que la desviación estándar es a lo sumo de $0.40$, pero el límite inferior estimado del intervalo de confianza al $95\%$ es de $0.4187$. Como $0.40$ queda por debajo del intervalo, la variabilidad real en las notas asignadas por los profesores es mayor a la esperada.
+
+-   **Interpretación:** Con un $95\%$ de confianza, la desviación estándar real de las notas otorgadas por los profesores de matemáticas oscila entre $0.4187$ y $1.6455$ puntos.
+
+**Gráfica de los 100 intervalos**
+
+```{r}
+#| label: fig-intervalos-chicuadrado
+#| fig-width: 9.5
+#| fig-height: 7
+#| warning: false
+#| message: false
+
+library(ggplot2)
+library(dplyr)
+
+# Semilla para reproducibilidad
+set.seed(2025)
+
+# Parámetros iniciales
+num_simulaciones <- 100
+sigma2_real <- 0.45      # Varianza poblacional real asumida
+sigma_real <- sqrt(sigma2_real)
+n <- 6
+df <- n - 1
+confianza <- 0.95
+alpha <- 1 - confianza
+
+# Valores críticos Chi-cuadrado para 5 df
+chi_der <- qchisq(1 - alpha / 2, df = df) # 12.833
+chi_izq <- qchisq(alpha / 2, df = df)     # 0.831
+
+# Simulación de 100 muestras
+datos <- data.frame(id = 1:num_simulaciones) %>%
+  rowwise() %>%
+  mutate(
+    # Generar muestra aleatoria de tamaño n = 6
+    muestra = list(rnorm(n, mean = 4.0, sd = sigma_real)),
+    # Varianza muestral S^2
+    s2 = var(muestra),
+    # Límites del intervalo para la varianza: (n-1)S^2 / chi^2
+    li = (df * s2) / chi_der,
+    ls = (df * s2) / chi_izq,
+    # Evaluación de cobertura sobre la varianza real (0.45)
+    contiene_sigma2 = ifelse(li <= sigma2_real & ls >= sigma2_real, "Contiene σ² (95%)", "NO contiene σ²")
+  ) %>%
+  ungroup()
+
+# Conteo de aciertos en la simulación
+exitos <- sum(datos$contiene_sigma2 == "Contiene σ² (95%)")
+porcentaje_exito <- (exitos / num_simulaciones) * 100
+
+# Gráfica de los 100 intervalos
+ggplot(datos, aes(x = id, y = s2, color = contiene_sigma2)) +
+  # Línea horizontal de la varianza poblacional real σ² = 0.45
+  geom_hline(yintercept = sigma2_real, color = "black", linetype = "dashed", linewidth = 1) +
+  # Barras de error para los límites Li y Ls de la varianza
+  geom_errorbar(aes(ymin = li, ymax = ls), width = 0.25, alpha = 0.85, linewidth = 0.7) +
+  # Punto central en la varianza muestral calculada S^2
+  geom_point(size = 1.6) +
+  # Esquema de colores según estado
+  scale_color_manual(values = c("Contiene σ² (95%)" = "#e024c3", "NO contiene σ²" = "#d9534f")) +
+  labs(
+    title = "Simulación de 100 Intervalos de Confianza al 95% (Varianza Chi-cuadrado)",
+    x = "Número de Muestra / Simulación",
+    y = "Varianza Muestral (S²) e Intervalo de Confianza",
+    color = "Estado del Intervalo"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "top",
+    plot.title = element_text(face = "bold", size = 13),
+    panel.grid.minor = element_blank()
+  )
+```
+
+**Interpretación de la gráfica** <br>
+
+Bajo un proceso de muestreo repetido (con muestras aleatorias de tamaño $n = 6$), si construimos 100 intervalos de confianza al 95%, se espera que 95 de esos intervalos contengan la verdadera varianza poblacional ($\sigma^2$), mientras que 5 de ellos no la contendrán.
+
+-   **Diferencia de las medias de dos poblaciones (Varianzas conocidas)**
+
+**Teoría:** Se compara la media de dos poblaciones independientes normales con varianzas poblacionales $\sigma_1^2$ y $\sigma_2^2$ conocidas. La diferencia de medias muestrales $(\overline{x}_1 - \overline{x}_2)$ sigue una distribución normal estándar tras su estandarización.
+
+En la analítica de datos educativos, uno de los objetivos más comunes es comparar la efectividad de metodologías de enseñanza, evaluar brechas de rendimiento entre subgrupos o medir el impacto de intervenciones institucionales ("Antes/Después").
+
+Para la diferencia de parámetros poblacionales ($\mu_1 - \mu_2$ o $p_1 - p_2$), la interpretación de las reglas de decisión de un Intervalo de Confianza ($IC$) de $(1-\alpha)100\%$ según sus límites \[$L_i$, $L_s$\] se sintetiza en la siguiente matriz de inferencia:
+
+| Lim. Inferior ($L_i$) | Lim. Superior ($L_s$) | Relación Poblacional Inferida | Conclusión Contextual |
+|:----------------:|:----------------:|:----------------:|:-----------------|
+| **+** | **+** | $\mu_1 > \mu_2 \quad (\mu_1 - \mu_2 > 0)$ | El parámetro del **Grupo 1** es significativamente **mayor** que el del Grupo 2. |
+| **-** | **-** | $\mu_2 > \mu_1 \quad (\mu_1 - \mu_2 < 0)$ | El parámetro del **Grupo 2** es significativamente **mayor** que el del Grupo 1. |
+| **-** | **+** | $\mu_1 = \mu_2 \quad (0 \in IC)$ | **No existe diferencia estadísticamente significativa** entre ambos grupos al nivel de confianza elegido. |
+
+**Fórmula del Intervalo:**
+
+$$\begin{aligned}
+\mu_1 - \mu_2 &\in \left( (\overline{x}_1 - \overline{x}_2) - z_{\frac{\alpha}{2}}\sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}, \right. \\
+&\qquad \left. (\overline{x}_1 - \overline{x}_2) + z_{\frac{\alpha}{2}}\sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}} \right)
+\end{aligned}$$
+
+```{r}
+library(ggplot2)
+
+# Configuración del nivel de significación
+alpha <- 0.05
+z <- qnorm(1 - alpha / 2)
+
+# Generación del gráfico N(0, 1)
+ggplot(data.frame(x = c(-3.5, 3.5)), aes(x)) +
+  # Curva verde exterior
+  stat_function(fun = dnorm, color = "#006400", linewidth = 1.2) +
+  # Área verde sombreada (1 - alpha)
+  stat_function(fun = dnorm, xlim = c(-z, z), geom = "area", fill = "#90ee90", alpha = 0.9) +
+  # Líneas verticales grises
+  geom_vline(xintercept = c(-z, z), color = "#a0a0a0", linewidth = 0.8) +
+  # Línea del eje X con flecha
+  geom_segment(aes(x = -3.5, y = 0, xend = 3.6, yend = 0), 
+               arrow = arrow(length = unit(0.2, "cm")), color = "#a0a0a0", linewidth = 0.6) +
+  # Texto 1 - alpha y N(0, 1)
+  annotate("text", x = 0, y = 0.12, label = expression(1 - alpha), size = 6) +
+  annotate("text", x = 2.5, y = 0.35, label = expression(N(0, 1)), size = 6) +
+  # Etiquetas de los cuantiles en el eje X
+  scale_x_continuous(breaks = c(-z, z), labels = c(expression(-z[alpha/2]), expression(z[alpha/2]))) +
+  # Limpieza de estilos
+  theme_void() +
+  theme(
+    axis.text.x = element_text(size = 14, color = "black", vjust = -0.5),
+    plot.margin = margin(10, 10, 10, 10)
+  )
+```
+
+**Ejercicio**
+
+Para $n$ unidades pareadas con diferencias $d_i = X_{Despues} - X_{Antes}$:
+
+$$
+\left(\bar{d} - t_{(\alpha/2, \, n-1)} \frac{S_d}{\sqrt{n}}, \quad \bar{d} + t_{(\alpha/2, \, n-1)} \frac{S_d}{\sqrt{n}}\right)
+$$
+
+Donde $\bar{d} = \frac{\sum d_i}{n}$ y $S_d = \sqrt{\frac{\sum (d_i - \bar{d})^2}{n-1}}$.
+
+------------------------------------------------------------------------
+
+**contexto**
+
+Una universidad implementó un programa piloto de tutorías personalizadas durante un semestre. Se evaluó a una muestra aleatoria de $n = 10$ estudiantes en un examen diagnóstico al inicio ($X_{Antes}$) y al final del programa ($X_{Despues}$). Las notas (sobre 200 puntos) se presentan a continuación:
+
+```{r datos-pareados}
+# Registro muestral
+estudiantes <- 1:10
+antes   <- c(70, 84, 88, 110, 105, 100, 110, 67, 79, 86)
+despues <- c(115, 148, 176, 191, 158, 178, 179, 140, 161, 157)
+
+df_pareado <- data.frame(estudiantes, antes, despues, d_i = despues - antes)
+knitr::kable(df_pareado, col.names = c("Estudiante", "Antes", "Después", "Diferencia (d_i)"), align = "c")
+```
+
+($\alpha = 0.05$, $95\%$ Confianza)
+
+1.  **Media de las diferencias (**$\bar{d}$): $$\bar{d} = 70.40$$
+
+2.  **Desviación estándar de las diferencias (**$S_d$): $$S_d = 13.38$$
+
+3.  **Grados de libertad:** $$v = 10 - 1 = 9$$
+
+4.  **Valor crítico** $t_{0.025, 9}$: $$2.262$$
+
+5.  **Margen de Error (**$m.e.$):
+
+$$m.e = 2.262 \times \frac{13.38}{\sqrt{10}} =
+9.56$$
+
+6.  **Intervalo:**
+
+$$L_i = 70.40 - 9.56 = 60.84, \quad L_s = 70.40 + 9.56 = 79.96$$
+
+$$P(60.84 \le \mu_{Después} - \mu_{Antes} \le 79.96) = 95\%$$
+
+```{r grafico-pareado, echo=TRUE}
+# Visualización del IC para Muestras Pareadas
+n <- 10
+d_bar <- mean(df_pareado$d_i)
+s_d <- sd(df_pareado$d_i)
+t_crit <- qt(0.975, df = n - 1)
+me <- t_crit * (s_d / sqrt(n))
+
+li <- d_bar - me
+ls <- d_bar + me
+
+x_vals <- seq(-4, 4, length.out = 1000)
+df_norm <- data.frame(x = x_vals, y = dt(x_vals, df = n - 1))
+df_area <- subset(df_norm, x >= -t_crit & x <= t_crit)
+
+ggplot(df_norm, aes(x = x, y = y)) +
+  geom_area(data = df_area, fill = "#11EDB0", alpha = 0.7) +
+  geom_line(color = "#11916C", linewidth = 1.2) +
+  geom_vline(xintercept = c(-t_crit, t_crit), color = "gray40", linetype = "dashed") +
+  annotate("text", x = 0, y = 0.18, label = "95% Confianza", color = "darkgreen", fontface = "bold", size = 5) +
+  annotate("text", x = -2.7, y = 0.05, label = "alpha/2 = 0.025", color = "black", size = 3.5) +
+  annotate("text", x = 2.7, y = 0.05, label = "alpha/2 = 0.025", color = "black", size = 3.5) +
+  scale_x_continuous(breaks = c(-t_crit, t_crit), labels = c(paste0("Li = ", round(li, 2)), paste0("Ls = ", round(ls, 2)))) +
+  labs(title = "Diferencia De Las Medias De Dos Poblaciones",
+       subtitle = "Evaluación de Incremento en Puntaje (Después - Antes)",
+       x = NULL, y = NULL) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(color = "black", size = 11, face = "bold"),
+        panel.grid = element_blank(), axis.text.y = element_blank())
+```
+
+**Interpretación:** Con un $95\%$ de confianza, la verdadera ganancia promedio en la calificación de matemáticas tras el programa de tutorías se sitúa entre $+60.84$ y $+79.96$ puntos.
+
+-   **Conclusión:** Dado que ambos límites son positivos ($L_i > 0$ y $L_s > 0$), se concluye con significancia estadística que $\mu_{Después} > \mu_{Antes}$. El programa de tutorías fue altamente efectivo.
+
+
+**Gráfica de los 100 intervalos**
+
+
+```{r}
+#| label: fig-intervalos-pareadas
+#| fig-width: 9.5
+#| fig-height: 7
+#| warning: false
+#| message: false
+
+library(ggplot2)
+library(dplyr)
+
+# Semilla para reproducibilidad
+set.seed(2027)
+
+# Parámetros poblacionales según el ejercicio
+num_simulaciones <- 100
+mu_d_real <- 70.40       # Diferencia media real asumida
+sigma_d_real <- 13.38    # Desviación estándar muestral/poblacional de la diferencia
+n <- 10
+df <- n - 1
+confianza <- 0.95
+alpha <- 1 - confianza
+
+# Valor crítico t-Student para 95% y 9 df
+t_critico <- qt(1 - alpha / 2, df = df) # 2.262
+
+# Simulación de 100 muestras pareadas
+datos <- data.frame(id = 1:num_simulaciones) %>%
+  rowwise() %>%
+  mutate(
+    # Generar diferencias d_i de n = 10 observaciones
+    diferencias = list(rnorm(n, mean = mu_d_real, sd = sigma_d_real)),
+    # Estadísticos calculados por simulación
+    d_bar = mean(diferencias),
+    s_d = sd(diferencias),
+    me = t_critico * (s_d / sqrt(n)),
+    li = d_bar - me,
+    ls = d_bar + me,
+    # Evaluación de cobertura sobre la diferencia media real (70.40)
+    contiene_mu_d = ifelse(li <= mu_d_real & ls >= mu_d_real, "Contiene µd (95%)", "NO contiene µd")
+  ) %>%
+  ungroup()
+
+# Conteo de aciertos en la simulación
+exitos <- sum(datos$contiene_mu_d == "Contiene µd (95%)")
+porcentaje_exito <- (exitos / num_simulaciones) * 100
+
+# Gráfica de los 100 intervalos
+ggplot(datos, aes(x = id, y = d_bar, color = contiene_mu_d)) +
+  # Línea horizontal de la diferencia media verdadera μ_d = 70.40
+  geom_hline(yintercept = mu_d_real, color = "black", linetype = "dashed", linewidth = 1) +
+  # Barras de error para cada intervalo (Li y Ls)
+  geom_errorbar(aes(ymin = li, ymax = ls), width = 0.25, alpha = 0.85, linewidth = 0.7) +
+  # Punto central en la media muestral d_bar
+  geom_point(size = 1.6) +
+  # Esquema de colores estilo turquesa/verde esmeralda
+  scale_color_manual(values = c("Contiene µd (95%)" = "#1b9e77", "NO contiene µd" = "#d9534f")) +
+  labs(
+    title = "Simulación de 100 Intervalos de Confianza al 95% (Diferencia de Medias Pareadas)",
+    x = "Número de Muestra / Simulación",
+    y = "Diferencia Media Muestral (d̄) e Intervalo",
+    color = "Estado del Intervalo"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "top",
+    plot.title = element_text(face = "bold", size = 13),
+    panel.grid.minor = element_blank()
+  )
+
+```
+
+**Interpretación de la gráfica** <br> Bajo un proceso de muestreo repetido de 10 estudiantes ($n = 10$), si construimos 100 intervalos de confianza del 95%, se espera que 95 de esos intervalos contengan la verdadera diferencia media poblacional en el puntaje ($\mu_d = \mu_{\text{Después}} - \mu_{\text{Antes}}$), mientras que 5 de ellos no la contendrán.
+
+-   **Diferencia de las medias de dos poblaciones (Varianzas desconocidas e iguales)**
+
+**Teoría:** Cuando las varianzas de ambas poblaciones normales son desconocidas pero se asume la homogeneidad de varianzas ($\sigma_1^2 = \sigma_2^2$), se calcula una varianza ponderada combinada $S_p^2$. El estadístico pivote sigue una distribución $t$-Student con $n_1 + n_2 - 2$ grados de libertad.
+
+**Definición de la varianza ponderada** $S_p^2$:
+
+$$S_p^2 = \frac{(n_1 - 1)S_1^2 + (n_2 - 1)S_2^2}{n_1 + n_2 - 2}$$
+
+**Fórmula del Intervalo:**
+
+$$\begin{aligned}
+\mu_1 - \mu_2 &\in \left( (\overline{x}_1 - \overline{x}_2) - t_{\left(\frac{\alpha}{2}, n_1+n_2-2\right)} S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}, \right. \\
+&\qquad \left. (\overline{x}_1 - \overline{x}_2) + t_{\left(\frac{\alpha}{2}, n_1+n_2-2\right)} S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}} \right)
+\end{aligned}$$
+
+```{r}
+library(ggplot2)
+
+# Parámetros (grados de libertad y nivel de significación)
+df_val <- 10
+alpha <- 0.05
+t_val <- qt(1 - alpha / 2, df = df_val)
+
+# Generación del gráfico t-Student
+ggplot(data.frame(x = c(-3.8, 3.8)), aes(x)) +
+  # Curva verde exterior
+  stat_function(fun = dt, args = list(df = df_val), color = "#006400", linewidth = 1.2) +
+  # Área verde sombreada (1 - alpha)
+  stat_function(fun = dt, args = list(df = df_val), xlim = c(-t_val, t_val), geom = "area", fill = "#90ee90", alpha = 0.9) +
+  # Líneas verticales grises
+  geom_vline(xintercept = c(-t_val, t_val), color = "#a0a0a0", linewidth = 0.8) +
+  # Línea del eje X con flecha
+  geom_segment(aes(x = -3.8, y = 0, xend = 3.9, yend = 0), 
+               arrow = arrow(length = unit(0.2, "cm")), color = "#a0a0a0", linewidth = 0.6) +
+  # Texto 1 - alpha y t-Student
+  annotate("text", x = 0, y = 0.12, label = expression(1 - alpha), size = 6) +
+  annotate("text", x = 2.6, y = 0.33, label = "t-Student", size = 6) +
+  # Etiquetas en el eje X
+  scale_x_continuous(breaks = c(-t_val, t_val), labels = c(expression(-t[alpha/2]), expression(t[alpha/2]))) +
+  # Limpieza de estilos
+  theme_void() +
+  theme(
+    axis.text.x = element_text(size = 14, color = "black", vjust = -0.5),
+    plot.margin = margin(10, 10, 10, 10)
+  )
+```
+
+**Ejercicio** Cuando el intervalo de cociente de varianzas $F$ **SI incluye el número 1**, se asumen varianzas poblacionales iguales ($\sigma_1^2 = \sigma_2^2$). En este caso, se pondera la varianza conjunta mediante $S_p^2$:
+
+$$
+S_p^2 = \frac{(n_1 - 1)S_1^2 + (n_2 - 1)S_2^2}{n_1 + n_2 - 2}
+$$
+
+$$
+\mu_1 - \mu_2 \in \left( (\bar{x}_1 - \bar{x}_2) \pm t_{(\alpha/2, \, n_1 + n_2 - 2)} S_p \sqrt{\frac{1}{n_1} + \frac{1}{n_2}} \right)
+$$
+
+**Horas Semanales de Estudio en Colegios Públicos vs. Privados**
+
+Un investigador desea estimar la diferencia en las horas semanales de estudio autónomo entre estudiantes de colegios de sector **Oficial (**$n_1 = 7$) y **No Oficial (**$n_2 = 7$).
+
+-   **Sector Oficial (**$n_1 = 7$): $\bar{x}_1 = 446$ min/semana, $S_1^2 = 834.67$
+-   **Sector No Oficial (**$n_2 = 7$): $\bar{x}_2 = 452$ min/semana, $S_2^2 = 250.67$
+
+**Prueba de Varianzas al** $99\%$ Confianza ($\alpha = 0.01$)
+
+```{r varianzas-iguales}
+n1 <- 7; n2 <- 7
+s1_sq <- 834.67; s2_sq <- 250.67
+m1 <- 446; m2 <- 452
+
+ratio_sp <- s1_sq / s2_sq
+f_inf_sp <- qf(0.005, df1 = n2 - 1, df2 = n1 - 1)
+f_sup_sp <- qf(0.995, df1 = n2 - 1, df2 = n1 - 1)
+
+li_var_sp <- ratio_sp * f_inf_sp
+ls_var_sp <- ratio_sp * f_sup_sp
+```
+
+**Cociente de Varianzas muestrales (**$S_1^2 / S_2^2$): $834.67 / 250.67 = 3.33$ **Valores Críticos** $F_{0.005, 6, 6}$: $F_{lower} = 0.0903$, $F_{upper} = 11.073$ **Intervalo para** $\sigma_1^2 / \sigma_2^2$:
+
+$$P(0.30 \le \frac{\sigma_1^2}{\sigma_2^2} \le 36.87) = 99\%$$
+
+**Decisión del Analista:** Como el intervalo $[0.30, 36.87]$ **SI contiene al número 1**, es correcto suponer varianzas poblacionales homogenizadas/iguales ($\sigma_1^2 = \sigma_2^2$).
+
+------------------------------------------------------------------------
+
+-   **Estimación de la Diferencia de Medias con Varianza Ponderada (**$S_p^2$)
+
+```{r sp-calculo}
+sp_sq <- ((n1 - 1)*s1_sq + (n2 - 1)*s2_sq) / (n1 + n2 - 2)
+sp <- sqrt(sp_sq)
+
+t_crit_sp <- qt(0.995, df = n1 + n2 - 2)
+me_sp <- t_crit_sp * sp * sqrt(1/n1 + 1/n2)
+
+diff_sp <- m1 - m2
+li_sp <- diff_sp - me_sp
+ls_sp <- diff_sp + me_sp
+```
+
+1.  **Varianza Ponderada (**$S_p^2$):
+
+$$S_p^2 = \frac{6(834.67) + 6(250.67)}{12} = 542.67 \implies S_p = 23.30$$
+
+2.  **Grados de libertad:** $v = 7 + 7 - 2 = 12$
+3.  **Valor crítico** $t_{0.005, 12}$: $3.055$
+4.  **Margen de Error:** $3.055 \times 23.30 \times \sqrt{\frac{1}{7} + \frac{1}{7}} = 37.99$
+5.  **Intervalo al** $99\%$ de Confianza:
+
+$$P(-43.99 \le \mu_{Oficial} - \mu_{NoOficial} \le 31.99) = 99\%$$
+
+```{r grafico-sp, echo=TRUE}
+#| fig-width: 8.5
+#| fig-height: 6.5
+#| warning: false
+#| message: false
+
+library(ggplot2)
+library(dplyr)
+
+# 1. Parámetros extraídos del ejemplo
+df <- 12                  # v = 7 + 7 - 2 = 12
+confianza <- 0.99         # Nivel de confianza 99%
+alpha <- 1 - confianza     # alpha = 0.01
+t_critico <- 3.055        # Valor crítico t_(0.005, 12)
+
+# Límites del intervalo calculados en el ejercicio
+Li <- -43.99
+Ls <- 31.99
+
+# 2. Creación del dataframe para la curva t-Student
+x_vals <- seq(-4, 4, length.out = 1000)
+df_curva <- data.frame(
+  x = x_vals,
+  y = dt(x_vals, df = df)
+)
+
+# 3. Filtrar datos para el área sombreada del centro (1 - alpha = 0.99)
+df_sombra <- df_curva %>%
+  filter(x >= -t_critico & x <= t_critico)
+
+# 4. Construcción de la gráfica
+ggplot() +
+  # Área sombreada verde central
+  geom_area(data = df_sombra, aes(x = x, y = y), fill = "#ED780E", alpha = 0.8) +
+  # Curva t-Student (verde oscuro)
+  geom_line(data = df_curva, aes(x = x, y = y), color = "#AB5B13", size = 1) +
+  # Eje horizontal (y = 0) con flecha
+  geom_segment(aes(x = -4, xend = 4.2, y = 0, yend = 0), 
+               color = "gray40", size = 0.6, 
+               arrow = arrow(length = unit(0.2, "cm"), type = "closed")) +
+  # Líneas verticales grises para los valores críticos
+  geom_vline(xintercept = c(-t_critico, t_critico), color = "gray40", size = 0.6) +
+  # Etiqueta central "0.99" / "1 - α"
+  annotate("text", x = 0, y = 0.15, label = "0.99", size = 6, fontface = "bold") +
+  annotate("text", x = 0, y = 0.11, label = "1 - alpha", parse = TRUE, size = 5) +
+  # Etiqueta "t-Student" en el extremo derecho
+  annotate("text", x = 2.8, y = 0.28, label = "t-Student", size = 5.5, fontface = "bold") +
+  # Valores numéricos de los límites del intervalo en rojo (Li y Ls)
+  annotate("text", x = -t_critico, y = -0.025, label = paste0("Li = ", Li), color = "black", fontface = "bold", size = 4.5) +
+  annotate("text", x = t_critico, y = -0.025, label = paste0("Ls = ", Ls), color = "black", fontface = "bold", size = 4.5) +
+  # Título y Subtítulo basados en la imagen
+  labs(
+    title = " Varianzas Desconocidas e Iguales (Sp)",
+    subtitle = "Diferencia de Horas de Estudio: Sector Oficial - No Oficial (Confianza 99%)"
+  ) +
+  # Ajuste de bordes para visualizar texto inferior
+  coord_cartesian(ylim = c(-0.06, 0.4), clip = "off") +
+  theme_void() +
+  theme(
+    plot.title = element_text(size = 13, face = "bold", hjust = 0.05, margin = margin(b = 4)),
+    plot.subtitle = element_text(size = 11, hjust = 0.05, margin = margin(b = 15)),
+    plot.margin = margin(t = 20, r = 20, b = 35, l = 20)
+  )
+
+
+```
+
+**Interpretación:** Con un $99\%$ de confianza, la diferencia promedio de dedicación al estudio entre los estudiantes de colegios oficiales y no oficiales varía entre $-43.99$ y $+31.99$ minutos semanales. **Conclusión:** Puesto que el intervalo **contiene el cero**, no hay evidencia estadística suficiente para afirmar que un grupo estudia más que el otro ($\mu_{Oficial} = \mu_{NoOficial}$).
+
+**Gráfica de los 100 intervalos**
+
+```{r}
+#| label: fig-intervalos-sp
+#| fig-width: 9.5
+#| fig-height: 7
+#| warning: false
+#| message: false
+
+library(ggplot2)
+library(dplyr)
+
+# Semilla para reproducibilidad
+set.seed(2028)
+
+# Parámetros poblacionales y de diseño
+num_simulaciones <- 100
+mu_diff_real <- -6        # Diferencia muestral/poblacional asumida
+s1_cuad <- 834.67
+s2_cuad <- 250.67
+n1 <- 7
+n2 <- 7
+df <- n1 + n2 - 2         # 12 grados de libertad
+confianza <- 0.99
+alpha <- 1 - confianza
+
+# Valor crítico t-Student para 99% y 12 df
+t_critico <- qt(1 - alpha / 2, df = df) # 3.055
+
+# Simulación de 100 pares de muestras independientes
+datos <- data.frame(id = 1:num_simulaciones) %>%
+  rowwise() %>%
+  mutate(
+    # Muestras independientes
+    m1 = list(rnorm(n1, mean = 446, sd = sqrt(s1_cuad))),
+    m2 = list(rnorm(n2, mean = 452, sd = sqrt(s2_cuad))),
+    # Estadísticos muestrales recalculados
+    x1_bar = mean(m1),
+    x2_bar = mean(m2),
+    diff_bar = x1_bar - x2_bar,
+    var1 = var(m1),
+    var2 = var(m2),
+    # Varianza ponderada Sp^2
+    sp_cuad = ((n1 - 1) * var1 + (n2 - 1) * var2) / df,
+    sp = sqrt(sp_cuad),
+    me = t_critico * sp * sqrt((1 / n1) + (1 / n2)),
+    li = diff_bar - me,
+    ls = diff_bar + me,
+    # Evaluación de si cubre la diferencia real (-6)
+    contiene_mu_diff = ifelse(li <= mu_diff_real & ls >= mu_diff_real, "Contiene µ1 - µ2 (99%)", "NO contiene µ1 - µ2")
+  ) %>%
+  ungroup()
+
+# Conteo de aciertos en la simulación
+exitos <- sum(datos$contiene_mu_diff == "Contiene µ1 - µ2 (99%)")
+porcentaje_exito <- (exitos / num_simulaciones) * 100
+
+# Gráfica de los 100 intervalos
+ggplot(datos, aes(x = id, y = diff_bar, color = contiene_mu_diff)) +
+  # Línea horizontal de la diferencia media real (-6)
+  geom_hline(yintercept = mu_diff_real, color = "black", linetype = "dashed", linewidth = 1) +
+  # Barras de error para los límites Li y Ls
+  geom_errorbar(aes(ymin = li, ymax = ls), width = 0.25, alpha = 0.85, linewidth = 0.7) +
+  # Punto central de la diferencia estimada
+  geom_point(size = 1.6) +
+  # Esquema de colores estilo Naranja (acorde a la imagen)
+  scale_color_manual(values = c("Contiene µ1 - µ2 (99%)" = "#e67e22", "NO contiene µ1 - µ2" = "#2980b9")) +
+  labs(
+    title = "Simulación de 100 Intervalos de Confianza al 99% (Varianza Ponderada Sp)",
+    x = "Número de Muestra / Simulación",
+    y = "Diferencia de Medias Muestrales (x̄1 - x̄2) e Intervalo",
+    color = "Estado del Intervalo"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "top",
+    plot.title = element_text(face = "bold", size = 13),
+    panel.grid.minor = element_blank()
+  )
+
+```
+
+**Interpretación de la gráfica** <br>
+
+Bajo un proceso de muestreo repetido de colegios oficiales y no oficiales ($n_1 = 7, n_2 = 7$), si construimos 100 intervalos de confianza al 99%, se espera que 99 de esos intervalos contengan la verdadera diferencia media poblacional ($\mu_{\text{Oficial}} - \mu_{\text{No Oficial}}$), mientras que 1 de ellos no la contendrá.
+
+-   **Diferencia de las medias de dos poblaciones (Varianzas desconocidas y distintas)**
+
+**Teoría:** En el caso donde las varianzas son desconocidas y no se pueden asumir iguales ($\sigma_1^2 \neq \sigma_2^2$), la distribución pivote aproximada $t$-Student utiliza un número aproximado de grados de libertad $\nu$ (conocido como la aproximación de Welch-Satterthwaite).
+
+**Aproximación de los grados de libertad (**$\nu$):
+
+$$\nu \approx \frac{\left( \frac{S_1^2}{n_1} + \frac{S_2^2}{n_2} \right)^2}{\frac{\left(S_1^2/n_1\right)^2}{n_1 - 1} + \frac{\left(S_2^2/n_2\right)^2}{n_2 - 1}}$$
+
+**Fórmula del Intervalo:**
+
+$$\begin{aligned}
+\mu_1 - \mu_2 &\in \left( (\overline{x}_1 - \overline{x}_2) - t_{\left(\frac{\alpha}{2}, \nu\right)} \sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}, \right. \\
+&\qquad \left. (\overline{x}_1 - \overline{x}_2) + t_{\left(\frac{\alpha}{2}, \nu\right)} \sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}} \right)
+\end{aligned}$$
+
+```{r}
+library(ggplot2)
+
+# Parámetros (grados de libertad y nivel de significación)
+df_val <- 10
+alpha <- 0.05
+t_val <- qt(1 - alpha / 2, df = df_val)
+
+# Generación del gráfico t-Student
+ggplot(data.frame(x = c(-3.8, 3.8)), aes(x)) +
+  # Curva verde exterior
+  stat_function(fun = dt, args = list(df = df_val), color = "#006400", linewidth = 1.2) +
+  # Área verde sombreada (1 - alpha)
+  stat_function(fun = dt, args = list(df = df_val), xlim = c(-t_val, t_val), geom = "area", fill = "#90ee90", alpha = 0.9) +
+  # Líneas verticales grises
+  geom_vline(xintercept = c(-t_val, t_val), color = "#a0a0a0", linewidth = 0.8) +
+  # Línea del eje X con flecha
+  geom_segment(aes(x = -3.8, y = 0, xend = 3.9, yend = 0), 
+               arrow = arrow(length = unit(0.2, "cm")), color = "#a0a0a0", linewidth = 0.6) +
+  # Texto 1 - alpha y t-Student
+  annotate("text", x = 0, y = 0.12, label = expression(1 - alpha), size = 6) +
+  annotate("text", x = 2.6, y = 0.33, label = "t-Student", size = 6) +
+  # Etiquetas en el eje X
+  scale_x_continuous(breaks = c(-t_val, t_val), labels = c(expression(-t[alpha/2]), expression(t[alpha/2]))) +
+  # Limpieza de estilos
+  theme_void() +
+  theme(
+    axis.text.x = element_text(size = 14, color = "black", vjust = -0.5),
+    plot.margin = margin(10, 10, 10, 10)
+  )
+```
+
+**Ejercicio**
+
+Para elegir la fórmula adecuada de comparación de medias independientes, primero se evalúa el cociente de varianzas poblacionales ($\sigma_1^2 / \sigma_2^2$) mediante la **Distribución F de Fisher**:
+
+$$
+\frac{\sigma_1^2}{\sigma_2^2} \in \left( \frac{S_1^2}{S_2^2} F_{1-\alpha/2, \, n_2-1, \, n_1-1}, \quad \frac{S_1^2}{S_2^2} F_{\alpha/2, \, n_2-1, \, n_1-1} \right)
+$$
+
+Si el número $1$ NO está contenido en el intervalo, se asumen varianzas poblacionales distintas ($\sigma_1^2 \ne \sigma_2^2$).
+
+**Tiempo de Finalización de Exámenes en Modalidad Presencial vs. Virtual**
+
+Un equipo de evaluación educativa examina el tiempo (en minutos) que tardan los estudiantes en completar una evaluación objetiva en dos modalidades de examen independientes: **Modalidad A (Presencial)** y **Modalidad B (Virtual)**.
+
+-   **Modalidad Presencial (**$n_1 = 5$): $103, 94, 110, 87, 98$
+-   **Modalidad Virtual (**$n_2 = 7$): $97, 82, 123, 92, 175, 88, 118$
+
+**Prueba de Homogeneidad de Varianzas (**$\alpha = 0.10$, $90\%$ Confianza)
+
+```{r varianzas-distintas}
+x1 <- c(103, 94, 110, 87, 98)
+x2 <- c(97, 82, 123, 92, 175, 88, 118)
+
+n1 <- length(x1); n2 <- length(x2)
+m1 <- mean(x1); m2 <- mean(x2)
+v1 <- var(x1);  v2 <- var(x2)
+s1 <- sd(x1);   s2 <- sd(x2)
+
+ratio_var <- v2 / v1
+f_inf <- qf(0.05, df1 = n1 - 1, df2 = n2 - 1)
+f_sup <- qf(0.95, df1 = n1 - 1, df2 = n2 - 1)
+
+li_var <- ratio_var * f_inf
+ls_var <- ratio_var * f_sup
+```
+
+**Estadísticos:** \* Presencial: $\bar{x}_1 = 98.40$, $S_1^2 = 76.30$, $n_1 = 5$ \* Virtual: $\bar{x}_2 = 110.71$, $S_2^2 = 1035.90$, $n_2 = 7$ **Cociente de Varianzas muestrales (**$S_2^2 / S_1^2$): $1035.90 / 76.30 = 13.58$ **Valores Críticos** $F_{0.05, 4, 6}$: $F_{lower} = 0.1623$, $F_{upper} = 4.5337$ **Intervalo para** $\sigma_2^2 / \sigma_1^2$:
+
+$$P(2.20 \le \frac{\sigma_2^2}{\sigma_1^2} \le 61.57) = 90\%$$
+
+**Decisión del Analista:** El intervalo $[2.20, 61.57]$ **NO incluye el valor 1**. Por ende, existe suficiente evidencia de que la varianza de los tiempos en la modalidad virtual es sustancialmente mayor y distinta a la presencial ($\sigma_1^2 \ne \sigma_2^2$).
+
+**Intervalo de Confianza para** $\mu_1 - \mu_2$ con Varianzas Distintas (Ajuste de Welch)
+
+Fórmula de grados de libertad aproximados de Satterthwaite/Welch ($v$):
+
+$$
+v = \frac{\left( \frac{S_1^2}{n_1} + \frac{S_2^2}{n_2} \right)^2}{\frac{(S_1^2 / n_1)^2}{n_1 - 1} + \frac{(S_2^2 / n_2)^2}{n_2 - 1}} \approx 7 \text{ grados de libertad}
+$$
+
+$$
+\mu_1 - \mu_2 \in \left( (\bar{x}_1 - \bar{x}_2) \pm t_{(\alpha/2, \, v)} \sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}} \right)
+$$
+
+```{r welch-calculo}
+v_welch <- round(((v1/n1 + v2/n2)^2) / (((v1/n1)^2 / (n1 - 1)) + ((v2/n2)^2 / (n2 - 1))))
+t_crit_w <- qt(0.95, df = v_welch)
+se_welch <- sqrt(v1/n1 + v2/n2)
+me_welch <- t_crit_w * se_welch
+
+diff_m <- m1 - m2
+li_w <- diff_m - me_welch
+ls_w <- diff_m + me_welch
+```
+
+-   **Diferencia de medias (**$\bar{x}_1 - \bar{x}_2$): $98.40 - 110.71 = -12.31$ min
+-   **Valor crítico** $t_{0.05, 7}$: $1.895$
+-   **Margen de Error:** $1.895 \times \sqrt{\frac{76.30}{5} + \frac{1035.90}{7}} = 24.15$
+-   **Intervalo de Confianza al 90%:**
+
+$$P(-36.46 \le \mu_{Presencial} - \mu_{Virtual} \le 11.84) = 90\%$$
+
+```{r grafico-welch, echo=TRUE}
+#| label: fig-t-student-v7
+#| fig-width: 8.5
+#| fig-height: 6.5
+#| warning: false
+#| message: false
+
+library(ggplot2)
+library(dplyr)
+
+# 1. Parámetros de la distribución t-Student (v = 7)
+df <- 7
+confianza <- 0.95        # Asumiendo 95% de confianza estándar
+alpha <- 1 - confianza
+t_critico <- qt(1 - alpha/2, df = df) # Valor crítico ~ 2.365
+
+# Límites del intervalo extraídos de la segunda imagen
+Li <- -36.52
+Ls <- 11.89
+
+# 2. Creación del dataframe para la curva t-Student
+x_vals <- seq(-4, 4, length.out = 1000)
+df_curva <- data.frame(
+  x = x_vals,
+  y = dt(x_vals, df = df)
+)
+
+# 3. Filtrar datos para el área sombreada verde central
+df_sombra <- df_curva %>%
+  filter(x >= -t_critico & x <= t_critico)
+
+# 4. Construcción de la gráfica
+ggplot() +
+  # Área sombreada verde central
+  geom_area(data = df_sombra, aes(x = x, y = y), fill = "#6607F2", alpha = 0.8) +
+  # Curva t-Student (verde oscuro)
+  geom_line(data = df_curva, aes(x = x, y = y), color = "#380A78", size = 1.1) +
+  
+  # Eje horizontal (y = 0) con flecha al final (tomado de la primera imagen)
+  geom_segment(aes(x = -4, xend = 4.2, y = 0, yend = 0), 
+               color = "gray50", size = 0.6, 
+               arrow = arrow(length = unit(0.2, "cm"), type = "closed")) +
+               
+  # Líneas verticales grises extendidas (tomado de la primera imagen)
+  geom_segment(aes(x = -t_critico, xend = -t_critico, y = -0.045, yend = 0.38), color = "gray50", size = 0.6) +
+  geom_segment(aes(x = t_critico, xend = t_critico, y = -0.045, yend = 0.38), color = "gray50", size = 0.6) +
+  
+  # Etiqueta central "0.9"
+  annotate("text", x = 0, y = 0.15, label = "0.9", parse = TRUE, size = 6) +
+  
+  # Etiqueta superior derecha "t-Student"
+  annotate("text", x = 2.8, y = 0.30, label = "t-Student", size = 5.5) +
+  
+  # Etiquetas numéricas rojas (Li y Ls) en la base (de la segunda imagen)
+  annotate("text", x = -t_critico, y = -0.02, label = paste0("Li = ", Li), color = "black", fontface = "bold", size = 4.5) +
+  annotate("text", x = t_critico, y = -0.02, label = paste0("Ls = ", Ls), color = "black", fontface = "bold", size = 4.5) +
+  
+  
+  # Título y Subtítulo de la segunda imagen
+  labs(
+    title = "Varianzas Desconocidas y Distintas",
+    subtitle = "Diferencia de Tiempos de Examen: Presencial - Virtual"
+  ) +
+  
+  # Ajuste del plano para dar espacio a los textos inferiores
+  coord_cartesian(ylim = c(-0.05, 0.4), clip = "off") +
+  theme_void() +
+  theme(
+    plot.title = element_text(size = 13, face = "bold", hjust = 0.05, margin = margin(b = 4)),
+    plot.subtitle = element_text(size = 11, hjust = 0.05, margin = margin(b = 15)),
+    plot.margin = margin(t = 20, r = 20, b = 35, l = 20)
+  )
+```
+
+**Interpretación:** Con un $90\%$ de confianza, la diferencia en la duración promedio entre los exámenes presenciales y virtuales se encuentra entre $-36.46$ y $+11.84$ minutos. **Conclusión:** Debido a que el límite inferior es **negativo** y el límite superior es **positivo** ($0 \in IC$), se concluye que **posiblemente los tiempos promedio de ejecución entre ambas modalidades son iguales (**$\mu_1 = \mu_2$), aunque la modalidad virtual genera una dispersión en los tiempos significativamente mayor.
+
+**Gráfica de los 100 intervalos**
+
+```{r}
+#| label: fig-intervalos-welch
+#| fig-width: 9.5
+#| fig-height: 7
+#| warning: false
+#| message: false
+
+library(ggplot2)
+library(dplyr)
+
+# Semilla para reproducibilidad
+set.seed(2029)
+
+# Parámetros poblacionales y de diseño
+num_simulaciones <- 100
+mu_diff_real <- -12.31     # Diferencia real de medias
+s1_cuad <- 76.30
+s2_cuad <- 1035.90
+n1 <- 5
+n2 <- 7
+df <- 7                   # Grados de libertad ajustados por Welch
+confianza <- 0.90
+alpha <- 1 - confianza
+
+# Valor crítico t-Student para 90% y 7 df
+t_critico <- qt(1 - alpha / 2, df = df) # 1.895
+
+# Simulación de 100 pares de muestras independientes
+datos <- data.frame(id = 1:num_simulaciones) %>%
+  rowwise() %>%
+  mutate(
+    # Generar muestras heterogéneas
+    m1 = list(rnorm(n1, mean = 98.40, sd = sqrt(s1_cuad))),
+    m2 = list(rnorm(n2, mean = 110.71, sd = sqrt(s2_cuad))),
+    # Estadísticos muestrales
+    x1_bar = mean(m1),
+    x2_bar = mean(m2),
+    diff_bar = x1_bar - x2_bar,
+    var1 = var(m1),
+    var2 = var(m2),
+    # Error estándar con varianzas distintas (Welch)
+    se_welch = sqrt((var1 / n1) + (var2 / n2)),
+    me = t_critico * se_welch,
+    li = diff_bar - me,
+    ls = diff_bar + me,
+    # Evaluación de cobertura sobre la diferencia real (-12.31)
+    contiene_mu_diff = ifelse(li <= mu_diff_real & ls >= mu_diff_real, "Contiene µ1 - µ2 (90%)", "NO contiene µ1 - µ2")
+  ) %>%
+  ungroup()
+
+# Conteo de aciertos en la simulación
+exitos <- sum(datos$contiene_mu_diff == "Contiene µ1 - µ2 (90%)")
+porcentaje_exito <- (exitos / num_simulaciones) * 100
+
+# Gráfica de los 100 intervalos
+ggplot(datos, aes(x = id, y = diff_bar, color = contiene_mu_diff)) +
+  # Línea horizontal de la diferencia media real (-12.31)
+  geom_hline(yintercept = mu_diff_real, color = "black", linetype = "dashed", linewidth = 1) +
+  # Barras de error para los límites Li y Ls
+  geom_errorbar(aes(ymin = li, ymax = ls), width = 0.25, alpha = 0.85, linewidth = 0.7) +
+  # Punto central de la diferencia estimada
+  geom_point(size = 1.6) +
+  # Esquema de colores estilo Violeta/Púrpura (acorde a la imagen)
+  scale_color_manual(values = c("Contiene µ1 - µ2 (90%)" = "#7c3aed", "NO contiene µ1 - µ2" = "#d9534f")) +
+  labs(
+    title = "Simulación de 100 Intervalos de Confianza al 90% (Varianzas Distintas - Welch)",
+    x = "Número de Muestra / Simulación",
+    y = "Diferencia de Medias Muestrales (x̄1 - x̄2) e Intervalo",
+    color = "Estado del Intervalo"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "top",
+    plot.title = element_text(face = "bold", size = 13),
+    panel.grid.minor = element_blank()
+  )
+
+```
+
+**Interpretación de la gráfica** Bajo un proceso de muestreo repetido de exámenes en modalidad presencial y virtual ($n_1 = 5, n_2 = 7$), si construimos 100 intervalos de confianza al 90%, se espera que 90 de esos intervalos contengan la verdadera diferencia media poblacional en los tiempos de finalización ($\mu_{\text{Presencial}} - \mu_{\text{Virtual}}$), mientras que 10 de ellos no la contendrán.
+
+-   **Diferencia de las proporciones de dos poblaciones**
+
+**Teoría:** Permite comparar las proporciones $p_1$ y $p_2$ de dos poblaciones independientes a partir de sus proporciones muestrales $\hat{p}_1$ y $\hat{p}_2$. Para muestras de tamaño grande, la diferencia de proporciones muestrales aproxima una distribución Normal por el Teorema Central del Límite.
+
+**Fórmula del Intervalo:**
+
+$$\begin{aligned}
+p_1 - p_2 &\in \left( (\hat{p}_1 - \hat{p}_2) - z_{\frac{\alpha}{2}}\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1} + \frac{\hat{p}_2(1-\hat{p}_2)}{n_2}}, \right. \\
+&\qquad \left. (\hat{p}_1 - \hat{p}_2) + z_{\frac{\alpha}{2}}\sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1} + \frac{\hat{p}_2(1-\hat{p}_2)}{n_2}} \right)
+\end{aligned}$$
+
+```{r}
+library(ggplot2)
+
+# Configuración del nivel de significación
+alpha <- 0.05
+z <- qnorm(1 - alpha / 2)
+
+# Generación del gráfico N(0, 1)
+ggplot(data.frame(x = c(-3.5, 3.5)), aes(x)) +
+  # Curva verde exterior
+  stat_function(fun = dnorm, color = "#006400", linewidth = 1.2) +
+  # Área verde sombreada (1 - alpha)
+  stat_function(fun = dnorm, xlim = c(-z, z), geom = "area", fill = "#90ee90", alpha = 0.9) +
+  # Líneas verticales grises
+  geom_vline(xintercept = c(-z, z), color = "#a0a0a0", linewidth = 0.8) +
+  # Línea del eje X con flecha
+  geom_segment(aes(x = -3.5, y = 0, xend = 3.6, yend = 0), 
+               arrow = arrow(length = unit(0.2, "cm")), color = "#a0a0a0", linewidth = 0.6) +
+  # Texto 1 - alpha y N(0, 1)
+  annotate("text", x = 0, y = 0.12, label = expression(1 - alpha), size = 6) +
+  annotate("text", x = 2.5, y = 0.35, label = expression(N(0, 1)), size = 6) +
+  # Etiquetas de los cuantiles en el eje X
+  scale_x_continuous(breaks = c(-z, z), labels = c(expression(-z[alpha/2]), expression(z[alpha/2]))) +
+  # Limpieza de estilos
+  theme_void() +
+  theme(
+    axis.text.x = element_text(size = 14, color = "black", vjust = -0.5),
+    plot.margin = margin(10, 10, 10, 10)
+  )
+```
+
+**Ejercicio**
+
+Para muestras grandes independientes ($n_1, n_2 \ge 30$):
+
+$$
+p_1 - p_2 \in \left( (\hat{p}_1 - \hat{p}_2) \pm z_{\alpha/2} \sqrt{\frac{\hat{p}_1(1-\hat{p}_1)}{n_1} + \frac{\hat{p}_2(1-\hat{p}_2)}{n_2}} \right)
+$$
+
+**Retención Estudiantil en Alumnos con Beca Socioeconómica vs. Sin Beca**
+
+Una vicerrectoría académica evalúa si la proporción de graduación a tiempo ($p$) difiere entre estudiantes que reciben apoyo de **Beca Socioeconómica (Grupo 1)** y estudiantes **Sin Beca (Grupo 2)**.
+
+Se analizan dos cohortes independientes de $200$ estudiantes cada una: \* **Con Beca (**$n_1 = 200$): $a_1 = 70$ se graduaron a tiempo ($\hat{p}_1 = 70/200 = 0.35$). \* **Sin Beca (**$n_2 = 200$): $a_2 = 50$ se graduaron a tiempo ($\hat{p}_2 = 50/200 = 0.25$).
+
+Estime un intervalo de confianza del $90\%$ ($\alpha = 0.10$) para la diferencia de proporciones $p_1 - p_2$.
+
+```{r prop-calculo}
+n1 <- 200; a1 <- 70; p1_hat <- a1/n1
+n2 <- 200; a2 <- 50; p2_hat <- a2/n2
+
+diff_p <- p1_hat - p2_hat # 0.35 - 0.25 = 0.10
+
+z_crit_prop <- qnorm(0.95) # 1.645 para 90%
+se_prop <- sqrt((p1_hat * (1 - p1_hat) / n1) + (p2_hat * (1 - p2_hat) / n2))
+me_prop <- z_crit_prop * se_prop
+
+li_prop <- diff_p - me_prop
+ls_prop <- diff_p + me_prop
+```
+
+1.  **Proporciones observadas:** $\hat{p}_1 = 0.35$, $\hat{p}_2 = 0.25 \implies \hat{p}_1 - \hat{p}_2 = 0.10$
+2.  **Valor crítico** $Z_{0.05}$: $1.645$
+3.  **Error Estándar (**$SE$):
+
+$$SE = \sqrt{\frac{(0.35)(0.65)}{200} + \frac{(0.25)(0.75)}{200}} = \sqrt{0.0011375 + 0.0009375} = 0.0455$$
+
+4.  **Margen de Error:** $m.e = 1.645 \times 0.0455 = 0.0748 \quad (7.48\%)$
+5.  **Intervalo de Confianza al 90%:**
+
+$$L_i = 0.10 - 0.0748 = 0.0252, \quad L_s = 0.10 + 0.0748 = 0.1748$$
+
+$$P(0.0252 \le p_{Beca} - p_{SinBeca} \le 0.1748) = 90\%$$
+
+```{r grafico-prop, echo=TRUE}
+# Gráfico IC Proporción
+x_z <- seq(-3.5, 3.5, length.out = 1000)
+df_z <- data.frame(x = x_z, y = dnorm(x_z))
+df_z_area <- subset(df_z, x >= -z_crit_prop & x <= z_crit_prop)
+
+ggplot(df_z, aes(x = x, y = y)) +
+  geom_area(data = df_z_area, fill = "#E31B88", alpha = 0.7) +
+  geom_line(color = "#8A1A58", size = 1.2) +
+  geom_vline(xintercept = c(-z_crit_prop, z_crit_prop), color = "gray40", linetype = "dashed") +
+  annotate("text", x = 0, y = 0.18, label = "90% Confianza", color = "darkgreen", fontface = "bold", size = 5) +
+  annotate("text", x = -2.2, y = 0.05, label = "alpha/2 = 0.05", color = "black", size = 3.5) +
+  annotate("text", x = 2.2, y = 0.05, label = "alpha/2 = 0.05", color = "black", size = 3.5) +
+  scale_x_continuous(breaks = c(-z_crit_prop, z_crit_prop), 
+                     labels = c(paste0("Li = ", round(li_prop*100, 2), "%"), 
+                                paste0("Ls = ", round(ls_prop*100, 2), "%"))) +
+  labs(title = "D Diferencia de Proporciones",
+       subtitle = "Proporción de Graduación a Tiempo: Con Beca - Sin Beca",
+       x = NULL, y = NULL) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(color = "black", size = 11, face = "bold"),
+        panel.grid = element_blank(), axis.text.y = element_blank())
+```
+
+**Interpretación:** Con una confianza del $90\%$, se estima que la tasa de graduación a tiempo para los estudiantes becados es entre un $2.52\%$ y un $17.48\%$ mayor que la de los estudiantes no becados. **Conclusión:** Al ser ambos límites **estrictamente positivos** ($+ / +$), se concluye que $p_{Beca} > p_{SinBeca}$. **El programa de becas socioeconómicas favorece la tasa de graduación oportuna.**
+
+**Gráfica de los 100 intervalos**
+
+```{r}
+#| label: fig-intervalos-diferencia-proporciones
+#| fig-width: 9.5
+#| fig-height: 7
+#| warning: false
+#| message: false
+
+library(ggplot2)
+library(dplyr)
+
+# Semilla para reproducibilidad
+set.seed(2030)
+
+# Parámetros poblacionales y de diseño
+num_simulaciones <- 100
+p1_real <- 0.35           # Proporción real Grupo 1 (Con Beca)
+p2_real <- 0.25           # Proporción real Grupo 2 (Sin Beca)
+diff_p_real <- p1_real - p2_real  # 0.10
+n1 <- 200
+n2 <- 200
+confianza <- 0.90
+z_critico <- 1.645
+
+# Simulación de 100 pares de muestras binomiales
+datos <- data.frame(id = 1:num_simulaciones) %>%
+  rowwise() %>%
+  mutate(
+    # Generar éxitos binomiales en cada grupo
+    exitos1 = rbinom(1, size = n1, prob = p1_real),
+    exitos2 = rbinom(1, size = n2, prob = p2_real),
+    p1_hat = exitos1 / n1,
+    p2_hat = exitos2 / n2,
+    diff_hat = p1_hat - p2_hat,
+    # Error estándar muestral
+    se = sqrt((p1_hat * (1 - p1_hat) / n1) + (p2_hat * (1 - p2_hat) / n2)),
+    me = z_critico * se,
+    li = diff_hat - me,
+    ls = diff_hat + me,
+    # Evaluación de cobertura sobre la diferencia real (0.10)
+    contiene_diff = ifelse(li <= diff_p_real & ls >= diff_p_real, "Contiene p1 - p2 (90%)", "NO contiene p1 - p2")
+  ) %>%
+  ungroup()
+
+# Conteo de aciertos en la simulación
+exitos_sim <- sum(datos$contiene_diff == "Contiene p1 - p2 (90%)")
+porcentaje_exito <- (exitos_sim / num_simulaciones) * 100
+
+# Gráfica de los 100 intervalos
+ggplot(datos, aes(x = id, y = diff_hat, color = contiene_diff)) +
+  # Línea horizontal para la diferencia real p1 - p2 = 0.10
+  geom_hline(yintercept = diff_p_real, color = "black", linetype = "dashed", linewidth = 1) +
+  # Barras de error para los límites Li y Ls
+  geom_errorbar(aes(ymin = li, ymax = ls), width = 0.25, alpha = 0.85, linewidth = 0.7) +
+  # Punto central de la diferencia estimada
+  geom_point(size = 1.6) +
+  # Esquema de colores estilo Rosa/Fucsia (acorde a la imagen del ejercicio)
+  scale_color_manual(values = c("Contiene p1 - p2 (90%)" = "#e05297", "NO contiene p1 - p2" = "#2980b9")) +
+  # Formato de porcentaje en el eje Y
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  labs(
+    title = "Simulación de 100 Intervalos de Confianza al 90% (Diferencia de Proporciones)",
+    x = "Número de Muestra / Simulación",
+    y = "Diferencia Muestral (p̂1 - p̂2) e Intervalo",
+    color = "Estado del Intervalo"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    legend.position = "top",
+    plot.title = element_text(face = "bold", size = 13),
+    panel.grid.minor = element_blank()
+  )
+```
+
+**Interpretación de la gráfica**<br>
+
+Bajo un proceso de muestreo repetido de dos cohortes independientes ($n_1 = 200, n_2 = 200$), si construimos 100 intervalos de confianza al 90%, se espera que 90 de esos intervalos contengan la verdadera diferencia entre las proporciones poblacionales de graduación a tiempo ($p_{\text{Beca}} - p_{\text{SinBeca}}$), mientras que 10 de ellos no la contendrán.
+
+**CONCLUSIÓN**
+
+La estimación de parámetros mediante intervalos de confianza constituye uno de los pilares fundamentales de la inferencia estadística. Permite trasladar los resultados obtenidos a partir de muestras representativas hacia afirmaciones probabilísticas sobre la población subyacente, cuantificando explícitamente el margen de error y la incertidumbre implícita en la estimación.A través del análisis estructurado para una y dos poblaciones, se evidencia la versatilidad y complementariedad de las distribuciones de probabilidad muestrales ($N$, $t$-Student, $\chi^2$ y $F$-Fisher) para modelar la variabilidad muestral según el parámetro de interés (medias, proporciones, varianzas o sus diferencias) y las condiciones asociadas (conocimiento previo de la varianza poblacional o supuesto de homogeneidad de varianzas). El manejo riguroso de estas herramientas teóricas y su correcta representación gráfica facilitan la toma de decisiones fundamentada en evidencia cuantitativa.
+
+**REFERENCIAS**
+
+::: {#refs}
+Universidad Nacional de Educación a Distancia. (s. f.). Estimación de parámetros: Estimación puntual e intervalos de confianza \[Documento PDF no publicado\].
+
+Vaxasoftware. (s. f.). Intervalos de confianza para media, proporción y varianza de 1 y 2 poblaciones \[Tabla resumida en PDF\]. Recuperado de https://www.vaxasoftware.com/
+:::
